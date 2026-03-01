@@ -16,7 +16,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-3 mb-1">
               <img src={logo} alt="Arara Bots" className="h-10 w-auto" />
-              <span className="text-lg font-bold text-foreground">ARARA BOTS</span>
+              <span className="text-lg font-bold text-foreground">ARARABOTS</span>
             </div>
             <p className="text-muted-foreground text-md leading-relaxed mb-4">
               Grupo de Robótica da Universidade Federal de Mato Grosso do Sul.
@@ -67,7 +67,7 @@ const Footer = () => {
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-primary" />
                 <a
-                  href="mailto:ararabots.facom@ufms.br"
+                  href="ararabots.facom@ufms.br"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   ararabots.facom@ufms.br

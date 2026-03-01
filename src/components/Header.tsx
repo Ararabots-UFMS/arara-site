@@ -12,13 +12,10 @@ const Header = () => {
   const navLinks = [
     { label: "SOBRE NÓS", href: "/sobre" },
     { label: "NOSSO ROBÔ", href: "#robo" },
-    { label: "CONQUISTAS", href: "#conquistas" },
     { label: "PUBLICAÇÕES", href: "/publicacoes" },
     { label: "INGRESSO", href: "/inscricao" },
-    // Link direto para a nova página
-    { label: "PATROCÍNIO", href: "/patrocinio" }, 
-    // Removi "INGRESSO" pois não vi página pra isso, mas se tiver, segue a lógica
-  ];
+    { label: "PATROCÍNIO", href: "/patrocinio" }
+    ];
 
   // Helper: Gera o link correto baseado na localização atual
   const getLinkHref = (target: string) => {
@@ -64,7 +61,7 @@ const Header = () => {
           >
             <img src={logo} alt="Arara Bots" className="h-12 w-auto" />
             <span className="text-xl font-bold text-foreground transition-colors group-hover:text-primary">
-              ARARA BOTS
+              ARARABOTS
             </span>
           </Link>
 
