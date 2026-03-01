@@ -10,11 +10,11 @@ const Header = () => {
   // Definição dos links. Note que removemos o # do início para tratar na lógica abaixo
   // ou usamos rotas absolutas para páginas novas
   const navLinks = [
-    { label: "SOBRE NÓS", href: "#sobre" },
-    { label: "PILARES", href: "#pilares" },
+    { label: "SOBRE NÓS", href: "/sobre" },
     { label: "NOSSO ROBÔ", href: "#robo" },
     { label: "CONQUISTAS", href: "#conquistas" },
-    { label: "PUBLICAÇÕES", href: "#publicacoes" },
+    { label: "PUBLICAÇÕES", href: "/publicacoes" },
+    { label: "INGRESSO", href: "/inscricao" },
     // Link direto para a nova página
     { label: "PATROCÍNIO", href: "/patrocinio" }, 
     // Removi "INGRESSO" pois não vi página pra isso, mas se tiver, segue a lógica

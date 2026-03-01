@@ -1,5 +1,5 @@
 import { Target, Eye, Heart, LucideIcon } from "lucide-react";
-import AnimatedGrid from "./AnimatedGrid";
+import AnimatedParticles from "@/components/AnimatedParticles";
 
 interface PillarCardProps {
   category: string;
@@ -16,6 +16,8 @@ const PillarCard = ({ category, title, subtitle, description, icon: Icon }: Pill
       id="pilares"
       className="relative max-h-screen flex items-center pt-20 overflow"
     >
+
+      
     <div className="bg-card rounded-3xl p-8 border border-border card-hover flex flex-col h-full">
       {/* Category Label */}
       <div className="flex justify-end mb-6">

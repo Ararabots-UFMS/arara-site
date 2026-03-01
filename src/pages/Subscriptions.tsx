@@ -1,0 +1,138 @@
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { Helmet } from "react-helmet-async";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Ticket, ArrowRight, Bot, Users, Zap, Trophy } from "lucide-react";
+
+// --- DADOS DO ESQUEMA (LINHA DO TEMPO) ---
+const SELECTION_STEPS = [
+  {
+    icon: <Ticket className="w-5 h-5 text-primary" />,
+    title: "1. Inscrição Online",
+    date: "Aberto até 15/Mar (ficticio)",
+    description: "Preencha seus dados para demonstrar interesse em fazer parte da AraraBot."
+  },
+  {
+    icon: <Users className="w-5 h-5 text-primary" />,
+    title: "2. Dinâmica em Grupo",
+    date: "20/Mar (ficticio)",
+    description: "Um encontro presencial para avaliarmos trabalho em equipe e resolução de problemas lógicos."
+  },
+  {
+    icon: <Zap className="w-5 h-5 text-primary" />,
+    title: "3. Entrevista Técnica",
+    date: "25/Mar a 28/Mar (ficticio)",
+    description: "Bate-papo focado nos seus interesses (Mecânica, Eletrônica, Programação ou Marketing)."
+  },
+  {
+    icon: <Trophy className="w-5 h-5 text-primary" />,
+    title: "4. Resultado Oficial",
+    date: "01/Abr (ficticio)",
+    description: "Divulgação dos novos membros aprovados para integrar a equipe."
+  }
+];
+
+const Subscriptions = () => {
+  // Coloque o link real do Google Forms da equipe aqui 👇
+  const GOOGLE_FORMS_URL = "https://docs.google.com/forms/"; 
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      <Helmet>
+        <title>Ingressos e Inscrições | AraraBot</title>
+        <meta name="description" content="Garanta seu lugar nos eventos e processos seletivos da equipe AraraBot." />
+      </Helmet>
+
+      <Header />
+
+      <main className="flex-grow pt-32 pb-16 relative overflow-hidden">
+        
+        {/* Background Decorativo */}
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="container mx-auto px-6 relative z-10 min-h-[60vh] flex flex-col justify-center">
+          
+          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center max-w-6xl mx-auto w-full animate-fade-in">
+            
+            {/* LADO ESQUERDO: Esquema / Timeline */}
+            <div className="lg:col-span-3 space-y-8">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                  Faça parte do time <span className="text-primary">ARARA</span>
+                </h1>
+                <p className="text-lg text-muted-foreground">
+                  Entenda como funciona nossa jornada de seleção antes de realizar sua inscrição.
+                </p>
+              </div>
+
+              {/* Linha do Tempo Visual */}
+              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-primary/50 before:via-white/10 before:to-transparent">
+                {SELECTION_STEPS.map((step, index) => (
+                  <div key={index} className="relative flex items-start justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    
+                    {/* Ícone Central */}
+                    <div className="flex items-center justify-center w-12 h-12 rounded-full border-4 border-background bg-card/80 backdrop-blur-sm text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 relative z-10 transition-colors group-hover:border-primary/50">
+                      {step.icon}
+                    </div>
+                    
+                    {/* Card do Passo */}
+                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-4 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card/60">
+                      <div className="flex flex-col mb-1">
+                        <span className="text-primary font-bold text-sm tracking-wide uppercase">{step.date}</span>
+                        <h3 className="text-xl font-bold text-foreground">{step.title}</h3>
+                      </div>
+                      <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
+                    </div>
+
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* LADO DIREITO: Card "Inscreva-se Agora" */}
+            <div className="lg:col-span-2">
+              <Card className="bg-card/60 backdrop-blur-xl border-white/10 shadow-2xl relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary/50 to-primary" />
+                <div className="absolute -right-20 -top-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/20 transition-all duration-500" />
+                
+                <CardContent className="p-8 md:p-10 flex flex-col items-center text-center space-y-6">
+                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                    <Bot className="w-10 h-10 text-primary" />
+                  </div>
+                  
+                  <h2 className="text-3xl font-bold">Pronto para o desafio?</h2>
+                  
+                  <p className="text-muted-foreground">
+                    As vagas são limitadas. Garanta seu lugar no maior projeto de robótica da região e transforme sua carreira acadêmica.
+                  </p>
+                  
+                  {/* Botão Modificado para ser um Link Externo */}
+                  <Button 
+                    size="lg" 
+                    className="w-full h-14 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 transition-all hover:scale-105 group/btn"
+                    asChild
+                  >
+                    <a href={GOOGLE_FORMS_URL} target="_blank" rel="noopener noreferrer">
+                      Inscreva-se Agora
+                      <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                    </a>
+                  </Button>
+                  
+                  <p className="text-xs text-muted-foreground pt-4">
+                    Você será redirecionado para o nosso formulário oficial.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+
+          </div>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Subscriptions;

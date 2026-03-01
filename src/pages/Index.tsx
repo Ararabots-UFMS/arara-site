@@ -2,11 +2,9 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
 import PillarsSection from "@/components/PillarsSection";
 import Footer from "@/components/Footer";
 //import AchievemantSection from "@/components/AchievemantSection";
-import PublicationSection from "@/components/PublicationSection";
 //import RobotSection from "@/components/RobotSection";
 //import InvestimentSection from "@/components/InvestimentSection";
 //import TechAssembly from "@/components/TechAssembly";
@@ -58,16 +56,8 @@ const Index = () => {
           <HeroSection/>
         </section>
 
-        <section id="sobre">
-          <AboutSection/>
-        </section>
-
         <section id="pilares">
           <PillarsSection/>
-        </section>
-
-        <section id="publicacoes">
-          <PublicationSection />
         </section>
 
       </main>

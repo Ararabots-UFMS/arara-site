@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Heart, Users } from "lucide-react";
+import AnimatedParticles from "@/components/AnimatedParticles";
 
 const Support = () => {
   return (
@@ -15,6 +16,7 @@ const Support = () => {
       <Header />
 
       <main className="flex-grow pt-24 pb-16">
+        <AnimatedParticles />
         <div className="container mx-auto px-6">
           
           <div className="max-w-4xl mx-auto text-center mb-16 animate-fade-in">

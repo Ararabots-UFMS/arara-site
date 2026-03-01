@@ -24,13 +24,13 @@ const HeroSection = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="#publicacoes"
+                href="/publicacoes"
                 className="bg-foreground text-background px-4 py-4 rounded-full font-semibold hover:bg-foreground/90 transition-colors"
               >
                 Nossas Publicações
               </a>
               <a
-                href="#equipe"
+                href="/sobre"
                 className="border-2 border-primary text-foreground px-4 py-4 rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 Conheça a Equipe

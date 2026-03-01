@@ -4,9 +4,9 @@ import { Instagram, Linkedin, Github, Mail, User } from "lucide-react";
 const Footer = () => {
   const navigationLinks = [
     { label: "Home", href: "#home" },
-    { label: "Sobre Nós", href: "#sobre" },
-    { label: "Projetos", href: "#projetos" },
-    { label: "Patrocínio", href: "#patrocinio" },
+    { label: "Sobre Nós", href: "/sobre" },
+    { label: "Publicações", href: "/publicacoes" },
+    { label: "Patrocínio", href: "/patrocinio" },
   ];
 
   return (
@@ -75,7 +75,12 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <User size={18} className="text-primary" />
-                <span className="text-muted-foreground">Inscrições Abertas</span>
+                  <a
+                    href="/inscricao"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    <span className="text-muted-foreground">Inscrições Abertas</span>
+                  </a>
               </li>
             </ul>
           </div>
