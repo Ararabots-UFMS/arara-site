@@ -1,5 +1,6 @@
 import AnimatedGrid from "./AnimatedGrid";
 import teamPhoto from "../assets/teamPhoto.png";
+import AnimatedParticles from "./AnimatedParticles";
 
 const HeroSection = () => {
   return (
@@ -7,8 +8,8 @@ const HeroSection = () => {
       id="home"
       className="relative min-h-screen flex items-center pt-20 overflow-hidden"
     >
-      <AnimatedGrid />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-[1]" />
+      <AnimatedGrid/>
+
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">

@@ -1,16 +1,52 @@
+import { useEffect, useRef, useState, ReactNode } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Handshake } from "lucide-react";
+import AnimatedGrid from "@/components/AnimatedGrid";
 import AnimatedParticles from "@/components/AnimatedParticles";
+// Lembre-se de trocar para a imagem com o mascote (crochê)
+import sponsorshipHero from "@/assets/image2026.png"; 
+import Rankings from "@/components/Rankings";
+import SponsorWheel from "@/components/SponsorWheel";
+import SponsorContact from "@/components/SponsorContact";
+
+// --- COMPONENTE DE ANIMAÇÃO (Reutilizado do About) ---
+const FadeInOnScroll = ({ children, delay = 0 }: { children: ReactNode, delay?: number }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const domRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        setIsVisible(entry.isIntersecting);
+      });
+    }, { 
+      rootMargin: "-100px 0px -100px 0px",
+      threshold: 0.1 
+    });
+
+    if (domRef.current) observer.observe(domRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={domRef}
+      className={`transition-all duration-1000 ease-out ${
+        isVisible 
+          ? "opacity-100 translate-y-0 scale-100 blur-none" 
+          : "opacity-0 translate-y-8 scale-95 blur-sm"
+      }`}
+      style={{ transitionDelay: isVisible ? `${delay}ms` : '0ms' }}
+    >
+      {children}
+    </div>
+  );
+};
 
 const Sponsorship = () => {
   return (
-
-    
-
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col font-spartan">
       <Helmet>
         <title>Seja um Patrocinador | AraraBot</title>
         <meta name="description" content="Apoie a inovação e conecte sua marca ao futuro da robótica com a AraraBot." />
@@ -19,49 +55,95 @@ const Sponsorship = () => {
       <Header />
 
       <main className="flex-grow pt-24 pb-16">
+        
+        {/* =========================================
+            SEÇÃO 1: APRESENTAÇÃO (Estilo AboutSection)
+            ========================================= */}
+        <section className="relative py-16 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-[1]" />
+          
+          <div className="container mx-auto px-6 relative z-10">
+            
+            {/* Título e Subtítulo centralizados */}
+            <FadeInOnScroll>
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-wide">
+                  PATROCÍNIO
+                </h2>
+                <div className="w-24 h-1 bg-primary mx-auto mt-4 mb-6" />
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground/90">
+                  Saiba como nos apoiar
+                </h3>
+              </div>
+            </FadeInOnScroll>
 
-        <AnimatedParticles />
-        <div className="container mx-auto px-6">
-          {/* Hero da Página */}
-          <div className="max-w-4xl mx-auto text-center mb-16 animate-fade-in">
-            <div className="inline-flex items-center justify-center p-3 bg-primary/10 rounded-full mb-6">
-              <Handshake className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-               (EM PRODUÇÃO) Invista no <span className="text-primary">Futuro</span> da Tecnologia
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Torne-se um parceiro da AraraBot e ajude a impulsionar o desenvolvimento de novas tecnologias, educação e inovação no cenário nacional.
-            </p>
-          </div>
+            {/* Grid de Conteúdo (Imagem + Textos) */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              
+              <FadeInOnScroll delay={100}>
+                <div className="relative">
+                  <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-primary to-transparent opacity-20 blur-lg"></div>
+                  <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
+                    <img
+                      src={sponsorshipHero}
+                      alt="Equipe Ararabots segurando o mascote"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                    />
+                  </div>
+                </div>
+              </FadeInOnScroll>
 
-          {/* Área de Conteúdo (Placeholder para receber código depois) */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mb-20 animate-fade-in" style={{ animationDelay: "200ms" }}>
-            <div className="bg-card/30 border border-white/5 rounded-3xl p-8 h-80 flex items-center justify-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-500" />
-              <p className="text-muted-foreground font-medium z-10">
-                [Espaço para Benefícios do Patrocinador]
-              </p>
-            </div>
-            <div className="bg-card/30 border border-white/5 rounded-3xl p-8 h-80 flex items-center justify-center relative overflow-hidden group">
-              <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors duration-500" />
-              <p className="text-muted-foreground font-medium z-10">
-                [Espaço para Cotas de Patrocínio]
-              </p>
-            </div>
-          </div>
+              <FadeInOnScroll delay={200}>
+                <div className="space-y-8">
+                  <p className="text-foreground text-xl md:text-2xl font-bold leading-relaxed">
+                    Queremos você como patrocinador da nossa equipe!
+                  </p>
+                  
+                  <p className="text-muted-foreground text-lg leading-relaxed">
+                    Torne-se um patrocinador bronze, prata, ouro ou platina! Como estudantes, contamos com o seu apoio neste projeto para que possamos continuar a participar, com sucesso, em eventos de robótica.
+                  </p>
+                  
+                  <p className="text-muted-foreground text-lg leading-relaxed">
+                    Nesta temporada você está nos capacitando através de um patrocínio à não só participar na Competição Brasileira de Robótica em Goiânia (GO), mas também melhorar nossos robôs.
+                  </p>
 
-          {/* CTA Final */}
-          <div className="text-center bg-card/50 border border-white/10 rounded-3xl p-12 max-w-3xl mx-auto">
-            <h3 className="text-2xl font-bold mb-4">Pronto para fazer a diferença?</h3>
-            <p className="text-muted-foreground mb-8">
-              Entre em contato conosco e conheça nosso Mídia Kit completo.
-            </p>
-            <Button size="lg" className="rounded-full px-8">
-              Quero ser um Patrocinador <ArrowRight className="ml-2 w-4 h-4" />
-            </Button>
+                  <div className="border-l-4 border-primary pl-6">
+                    <h3 className="text-xl font-bold text-foreground mb-2">
+                      O que isso significa para você?
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      Além de anunciar e apoiar um grupo jovem e dinâmico através do seu envolvimento no projeto, você também terá contato com alunos talentosos de diversos cursos da UFMS. Abaixo você encontrará uma lista de possíveis pacotes de patrocínio e as vantagens que podemos oferecer a você.
+                    </p>
+                    <p className="mt-4 font-semibold text-foreground">
+                      Desde já gostaríamos de agradecer seu apoio.
+                    </p>
+                  </div>
+                </div>
+              </FadeInOnScroll>
+              
+            </div>
           </div>
-        </div>
+        </section>
+
+        {/* =========================================
+            SEÇÃO 2: RANKS (Bronze, Prata, Ouro, Platina)
+            Será implementada no próximo passo...
+            ========================================= */}
+          
+        <Rankings />
+
+         {/* ========================================= */}
+
+          {/* SEÇÃO 3: RODA DE PATROCÍNIO (Visualização Interativa) */}
+
+          <SponsorWheel />
+
+         {/* ========================================= */}
+
+          {/* SEÇÃO 4: CONTATO PARA PROPOSTAS DE PATROCÍNIO */}
+
+          <SponsorContact />
+
       </main>
 
       <Footer />

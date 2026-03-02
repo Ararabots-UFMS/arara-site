@@ -4,6 +4,8 @@ import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Ticket, ArrowRight, Bot, Users, Zap, Trophy } from "lucide-react";
+import AnimatedGrid from "@/components/AnimatedGrid";
+import AnimatedParticles from "@/components/AnimatedParticles";
 
 // --- DADOS DO ESQUEMA (LINHA DO TEMPO) ---
 const SELECTION_STEPS = [
@@ -49,7 +51,10 @@ const Subscriptions = () => {
       <main className="flex-grow pt-32 pb-16 relative overflow-hidden">
         
         {/* Background Decorativo */}
+
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+
+        <AnimatedParticles />
 
         <div className="container mx-auto px-6 relative z-10 min-h-[60vh] flex flex-col justify-center">
           

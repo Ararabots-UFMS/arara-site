@@ -111,6 +111,7 @@ const About = () => {
             ========================================= */}
         <section className="relative py-16 overflow-hidden">
           <AnimatedGrid inverted />
+          <AnimatedParticles />
           <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-[1]" />
           
           <div className="container mx-auto px-6 relative z-10">

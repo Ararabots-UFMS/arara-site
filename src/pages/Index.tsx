@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 //import TechAssembly from "@/components/TechAssembly";
 import PageSkeleton from "@/components/PageSkeleton";
 import { Helmet } from "react-helmet-async";
+import AnimatedParticles from "@/components/AnimatedParticles";
 
 
 const Index = () => {

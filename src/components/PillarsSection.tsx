@@ -1,5 +1,6 @@
 import { Target, Eye, Heart, LucideIcon } from "lucide-react";
 import AnimatedParticles from "@/components/AnimatedParticles";
+import AnimatedGrid from "./AnimatedGrid";
 
 interface PillarCardProps {
   category: string;
@@ -11,7 +12,7 @@ interface PillarCardProps {
 
 const PillarCard = ({ category, title, subtitle, description, icon: Icon }: PillarCardProps) => {
   return (
-
+    
     <section
       id="pilares"
       className="relative max-h-screen flex items-center pt-20 overflow"
@@ -78,11 +79,13 @@ const PillarsSection = () => {
   ];
 
   return (
-    <section id="pilares" className="py-24 bg-background">
+    <section id="pilares" className="py-24 relative overflow-hidden">
+      <AnimatedParticles />
       <div className="container mx-auto px-6">
         {/* Section Title */}
         <div className="text-center mb-6">
           <h2 className="section-title">
+      
             NOSSOS <span className="text-primary">PILARES</span>
           </h2>
           <div className="w-24 h-1 bg-primary mx-auto mt-4" />
@@ -102,6 +105,7 @@ const PillarsSection = () => {
         </div>
       </div>
     </section>
+
   );
 };
 
