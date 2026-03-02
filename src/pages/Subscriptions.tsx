@@ -37,7 +37,7 @@ const SELECTION_STEPS = [
 
 const Subscriptions = () => {
   // Coloque o link real do Google Forms da equipe aqui 👇
-  const GOOGLE_FORMS_URL = "https://docs.google.com/forms/"; 
+  const GOOGLE_FORMS_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfmiCgYEHvRqJHrNCBMOkjieMT82yBlKg9umjifEbud7ucorg/viewform?usp=header"; 
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -54,7 +54,9 @@ const Subscriptions = () => {
 
         <div className="absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-3xl h-[400px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
 
+        <AnimatedGrid />
         <AnimatedParticles />
+        
 
         <div className="container mx-auto px-6 relative z-10 min-h-[60vh] flex flex-col justify-center">
           

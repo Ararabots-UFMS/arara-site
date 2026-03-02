@@ -54,14 +54,15 @@ const Sponsorship = () => {
 
       <Header />
 
-      <main className="flex-grow pt-24 pb-16">
+      <main className="flex-grow pb-6 relative overflow-hidden">
         
         {/* =========================================
             SEÇÃO 1: APRESENTAÇÃO (Estilo AboutSection)
             ========================================= */}
-        <section className="relative py-16 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-[1]" />
-          
+        <section className="relative pt-32 py-16 overflow-hidden">
+          <AnimatedGrid />
+          <AnimatedParticles />
+
           <div className="container mx-auto px-6 relative z-10">
             
             {/* Título e Subtítulo centralizados */}

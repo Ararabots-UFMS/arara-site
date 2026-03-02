@@ -104,15 +104,15 @@ const About = () => {
 
       <Header />
 
-      <main className="flex-grow pt-24 pb-16">
+      <main className="flex-grow pb-16">
         
         {/* =========================================
             SEÇÃO 1: QUEM SOMOS (Antigo AboutSection)
             ========================================= */}
-        <section className="relative py-16 overflow-hidden">
-          <AnimatedGrid inverted />
+        <section className="relative pt-28 pb-16 overflow-hidden">
+          <AnimatedGrid />
           <AnimatedParticles />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-[1]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/90 to-background z-[1]" />
           
           <div className="container mx-auto px-6 relative z-10">
             <FadeInOnScroll>
@@ -224,11 +224,13 @@ const About = () => {
                     </div>
 
                   </div>
+                  
                 );
               })}
             </div>
 
           </div>
+          
         </section>
 
       </main>

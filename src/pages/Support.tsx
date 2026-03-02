@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet-async";
 import AnimatedGrid from "@/components/AnimatedGrid";
 import { Wallet, PackageOpen, Plus } from "lucide-react";
 import SupportContact from "@/components/SupportContact";
+import AnimatedParticles from "@/components/AnimatedParticles";
 
 // --- DADOS MOCKADOS DA PLANILHA (Substituiremos pelo fetch do Google Sheets depois) ---
 const INVENTORY_MOCK = [
@@ -39,8 +40,9 @@ const Support = () => {
 
       <Header />
 
-      <main className="flex-grow pt-32 pb-16 relative overflow-hidden">
+      <main className="flex-grow pt-32 relative overflow-hidden">
         <AnimatedGrid />
+        <AnimatedParticles />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/90 to-background z-[1]" />
 
         <div className="container mx-auto px-6 relative z-10">
@@ -49,9 +51,9 @@ const Support = () => {
               SEÇÃO 1: HERO E OPÇÕES DE APOIO
               ========================================= */}
           <div className="max-w-4xl mx-auto mb-24 animate-fade-in">
-            <h1 className="text-5xl md:text-6xl font-bold mb-8 text-[#B91C1C] tracking-wide text-center md:text-left">
-              Apoie nosso projeto
-            </h1>
+                <h1 className="text-5xl md:text-6xl font-bold mb-8 tracking-wide text-center md:text-left">
+                  Apoie nosso <span className="text-primary uppercase">projeto</span>
+                </h1>
             
             <div className="space-y-4 text-lg md:text-xl text-white/90 font-medium mb-12 text-center md:text-left">
               <p>Apoie nosso projeto<br/>Fortalecendo a robótica universitária e a formação de engenheiros.</p>
@@ -106,6 +108,7 @@ const Support = () => {
           {/* =========================================
               SEÇÃO 2: TABELA DE INVENTÁRIO
               ========================================= */}
+  
           <div ref={tableRef} className="max-w-5xl mx-auto pt-12 pb-24 animate-fade-in" style={{ animationDelay: "200ms" }}>
             
             {/* Cabeçalho da Tabela */}
@@ -157,14 +160,13 @@ const Support = () => {
                 </table>
               </div>
             </div>
-
           </div>
+        </div>
 
-      <div ref={contactRef}>
+      <div ref={contactRef} className="relative z-10 w-full">
         <SupportContact />
       </div>
 
-        </div>
       </main>
 
       <Footer />

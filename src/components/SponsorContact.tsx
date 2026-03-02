@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import { Image as ImageIcon, Mail, Send } from "lucide-react";
 import { toast } from "sonner";
 import emailjs from '@emailjs/browser';
+import AnimatedGrid from "./AnimatedGrid";
+import AnimatedParticles from "./AnimatedParticles";
 
 const SponsorContact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,50 +46,41 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
       });
   };
 
-  return (
-    <section className="py-24 relative z-10 font-spartan">
+return (
+    <section className="py-24 relative overflow-hidden z-10 font-spartan">
+      <AnimatedGrid inverted />
+      <AnimatedParticles />
       <div className="container mx-auto px-6">
         
-        <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+        {/* Alterado para uma coluna centralizada e mais estreita */}
+        <div className="max-w-4xl mx-auto space-y-6 animate-fade-in" style={{ animationDelay: "200ms" }}>
           
-          {/* LADO ESQUERDO: Mantido exatamente igual... */}
-          <div className="space-y-8 animate-fade-in">
-            <div className="relative group cursor-pointer">
-              <div className="absolute -inset-1 bg-primary/20 rounded-[2.5rem] blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative bg-[#111111]/80 backdrop-blur-md border-2 border-dashed border-white/20 hover:border-primary/50 rounded-[2.5rem] p-12 flex flex-col items-center justify-center transition-colors duration-500 h-64 shadow-2xl">
-                <ImageIcon className="w-16 h-16 text-[#B91C1C] mb-4 drop-shadow-[0_0_15px_rgba(220,38,38,0.8)]" />
-                <h3 className="text-3xl font-bold text-white tracking-widest uppercase drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
-                  SUA MARCA AQUI
-                </h3>
-              </div>
-            </div>
+          {/* Cabeçalho Unificado: Título + E-mail */}
+          <div className="bg-[#111111]/90 backdrop-blur-md border border-white/10 rounded-[2rem] p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl text-center md:text-left">
+            
+            <h3 className="text-3xl font-bold text-white tracking-wide">
+              Entre em contato
+            </h3>
 
-            <div className="bg-[#111111]/90 backdrop-blur-md border border-white/10 rounded-[2rem] p-8 flex items-center gap-6 shadow-2xl hover:bg-[#151515] transition-colors">
-              <div className="w-14 h-14 rounded-2xl bg-[#B91C1C]/10 border border-[#B91C1C]/20 flex items-center justify-center shrink-0">
-                <Mail className="w-7 h-7 text-[#B91C1C]" />
+            {/* Bloco de E-mail movido para cá */}
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-[#B91C1C]/10 border border-[#B91C1C]/20 flex items-center justify-center shrink-0 hidden sm:flex">
+                <Mail className="w-6 h-6 text-[#B91C1C]" />
               </div>
               <div>
-                <p className="text-muted-foreground text-sm font-semibold tracking-wide mb-1 uppercase">
+                <p className="text-muted-foreground text-xs font-semibold tracking-wide mb-1 uppercase">
                   E-mail para propostas
                 </p>
                 <a 
                   href="mailto:ararabots.facom@ufms.br" 
-                  className="text-xl md:text-2xl font-bold text-white hover:text-primary transition-colors"
+                  className="text-lg md:text-xl font-bold text-white hover:text-[#B91C1C] transition-colors"
                 >
                   ararabots.facom@ufms.br
                 </a>
               </div>
             </div>
-          </div>
 
-          {/* LADO DIREITO: Formulário de Contato com a tag 'ref' e 'name' */}
-          <div className="space-y-6 animate-fade-in" style={{ animationDelay: "200ms" }}>
-            
-            <div className="bg-[#111111]/90 backdrop-blur-md border border-white/10 rounded-[2rem] py-6 text-center shadow-2xl">
-              <h3 className="text-3xl font-bold text-white tracking-wide">
-                Entre em contato
-              </h3>
-            </div>
+          </div>
 
             <form 
               ref={form} // <-- Conecta o formulário ao React/EmailJS
@@ -151,7 +144,7 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
           </div>
 
         </div>
-      </div>
+
     </section>
   );
 };

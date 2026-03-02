@@ -65,7 +65,7 @@ const RANKS = [
 const Rankings = () => {
   return (
     <section className="py-24 relative z-10 font-spartan">
-
+      <AnimatedParticles />
       <div className="container mx-auto px-6">
         
         {/* Título */}

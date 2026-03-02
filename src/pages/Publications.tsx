@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import PublicationSection from "@/components/PublicationSection";
+import AnimatedGrid from "@/components/AnimatedGrid";
 
 const Publications = () => {
   return (
@@ -18,6 +19,8 @@ const Publications = () => {
 
       {/* Usamos flex-grow para empurrar o footer para baixo e pt-20 para compensar o Header fixo */}
       <main className="flex-grow pt-20">
+        <AnimatedGrid />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/90 to-background z-[1]" />
         <PublicationSection />
       </main>
 

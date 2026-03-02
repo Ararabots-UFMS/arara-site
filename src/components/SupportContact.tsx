@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { HeartHandshake, Send, QrCode } from "lucide-react";
 import { toast } from "sonner";
 import AnimatedGrid from "./AnimatedGrid";
+import AnimatedParticles from "./AnimatedParticles";
 // import emailjs from '@emailjs/browser'; // Descomente quando for plugar o EmailJS
 
 const SupportContact = () => {
@@ -23,7 +24,9 @@ const SupportContact = () => {
   };
 
   return (
-    <section className="py-24 relative z-10 font-spartan">
+    <section className="py-24 relative overflow-hidden z-10 font-spartan">
+      <AnimatedGrid inverted />
+      <AnimatedParticles />
       <div className="container mx-auto px-6">
         
         <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-start">

@@ -80,6 +80,7 @@ const PillarsSection = () => {
 
   return (
     <section id="pilares" className="py-24 relative overflow-hidden">
+      <AnimatedGrid inverted />
       <AnimatedParticles />
       <div className="container mx-auto px-6">
         {/* Section Title */}

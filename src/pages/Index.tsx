@@ -23,7 +23,7 @@ const Index = () => {
     // Por enquanto um timer para simular.
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // 2000ms = 2 segundos
+    }, 0); // 2000ms = 2 segundos
 
     return () => clearTimeout(timer);
   }, []);

@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState, ReactNode } from "react";
+import TORMEC from "@/assets/TORMEC.png";
+import BATLAB from "@/assets/BATLAB.png";
+import AnimatedParticles from "./AnimatedParticles";
 
 // --- COMPONENTE DE ANIMAÇÃO LOCAL ---
 const FadeIn = ({ children, delay = 0 }: { children: ReactNode, delay?: number }) => {
@@ -31,16 +34,16 @@ const FadeIn = ({ children, delay = 0 }: { children: ReactNode, delay?: number }
 // IMPORTAÇÃO DAS LOGOS DOS PATROCINADORES
 // ==========================================
 const SPONSORS = [
-  { id: 1, name: "Patrocinador 1", logo: "LOGO 1" },
-  { id: 2, name: "BATLAB", logo: "BATLAB LOGO" },       
-  { id: 3, name: "TORMEC", logo: "TORMEC LOGO" },       
-  { id: 4, name: "Patrocinador 4", logo: "LOGO 4" },
-  { id: 5, name: "Patrocinador 5", logo: "LOGO 5" },
+
+  { id: 2, name: "BATLAB", logo: BATLAB },       
+  { id: 3, name: "TORMEC", logo: TORMEC },       
+
 ];
 
 const SponsorWheel = () => {
   return (
     <section className="py-24 relative z-10 font-spartan overflow-hidden">
+      <AnimatedParticles />
       <div className="container mx-auto px-6">
         
         {/* Título Estilo Pílula */}
@@ -78,13 +81,12 @@ const SponsorWheel = () => {
                     className="w-64 md:w-80 lg:w-96 h-32 md:h-40 lg:h-48 bg-[#111111]/80 backdrop-blur-md border border-white/5 rounded-3xl flex items-center justify-center shrink-0 hover:border-primary/50 hover:bg-card/40 transition-colors duration-300 group/card shadow-lg"
                   >
                     <span className="text-muted-foreground font-bold text-2xl lg:text-3xl tracking-widest group-hover/card:text-white transition-colors">
-                      {sponsor.logo}
+
                     </span>
-                    {/* <img 
-                      src={sponsor.logo} 
-                      alt={sponsor.name} 
+                    <img 
+                      src={sponsor.logo}
                       className="max-w-[80%] max-h-[70%] object-contain opacity-60 group-hover/card:opacity-100 transition-opacity duration-300 grayscale group-hover/card:grayscale-0" 
-                    /> */}
+                    />
                   </div>
                 ))}
               </div>
