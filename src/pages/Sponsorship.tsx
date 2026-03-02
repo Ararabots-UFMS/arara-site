@@ -62,6 +62,7 @@ const Sponsorship = () => {
         <section className="relative pt-32 py-16 overflow-hidden">
           <AnimatedGrid />
           <AnimatedParticles />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/10 to-background z-[1]" />
 
           <div className="container mx-auto px-6 relative z-10">
             

@@ -1,27 +1,63 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import AnimatedGrid from "@/components/AnimatedGrid";
-import { Wallet, PackageOpen, Plus } from "lucide-react";
+import { Wallet, PackageOpen, Plus, Loader2 } from "lucide-react";
 import SupportContact from "@/components/SupportContact";
 import AnimatedParticles from "@/components/AnimatedParticles";
+import Papa from "papaparse";
 
-// --- DADOS MOCKADOS DA PLANILHA (Substituiremos pelo fetch do Google Sheets depois) ---
-const INVENTORY_MOCK = [
-  { id: 1, component: "MICROCONTROLADOR", model: "STM32F103C8T6", qty: 2, price: "R$ 70" },
-  { id: 2, component: "DRIVER DE MOTOR", model: "A definir", qty: 4, price: "R$ 50" },
-  { id: 3, component: "SOLENÓIDE", model: "Soletec Série C", qty: 2, price: "R$ 100" },
-  { id: 4, component: "MOTOR DE DRIBBLER", model: "Rocket Mini Z", qty: 1, price: "R$ 280" },
-  { id: 5, component: "MOTOR MOVIMENTAÇÃO", model: "IFlight GM3506", qty: 4, price: "R$ 168" },
-  { id: 6, component: "BATERIA", model: "Lipo 3S/4S", qty: 1, price: "R$ 270" },
-  { id: 7, component: "COMUNICADOR SEM FIO", model: "NRF24L01", qty: 1, price: "R$ 15" },
-];
+// --- INTERFACE DOS DADOS ---
+interface InventoryItem {
+  id: number;
+  component: string;
+  model: string;
+  qty: string;
+  price: string;
+}
 
 const Support = () => {
-  // Referência para fazer o scroll suave até a tabela
   const tableRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+
+  // Estados para gerenciar os dados da planilha
+  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Link direto de exportação CSV da sua planilha real
+  const GOOGLE_SHEETS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTc5p5pe5Ecxu7u61Smi1ZObYdtBYMOlaLdrxArSqT-lGtZmvjahtbkdDzUsE3-n3_HcSeA9yekwVc1/pub?gid=1148208878&single=true&output=csv";
+
+  useEffect(() => {
+    const fetchInventory = async () => {
+      Papa.parse(GOOGLE_SHEETS_CSV_URL, {
+        download: true,
+        header: true,
+        complete: (results) => {
+          // Filtra linhas vazias verificando se a coluna 'Componente:' existe
+          const formattedData = results.data
+            .filter((row: any) => row["Componente:"] && row["Componente:"].trim() !== "") 
+            .map((row: any, index) => ({
+              id: index,
+              // Mapeando exatamente com os nomes que estão na primeira linha do seu Sheets
+              component: row["Componente:"] || "N/A",
+              model: row["Nome"] || "N/A",
+              qty: row["Quantidade"] || "0",
+              price: row["Preço médio"] || "R$ 0",
+            }));
+            
+          setInventory(formattedData);
+          setIsLoading(false);
+        },
+        error: (error) => {
+          console.error("Erro ao ler a planilha:", error);
+          setIsLoading(false);
+        }
+      });
+    };
+
+    fetchInventory();
+  }, []);
 
   const scrollToTable = () => {
     tableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -51,12 +87,12 @@ const Support = () => {
               SEÇÃO 1: HERO E OPÇÕES DE APOIO
               ========================================= */}
           <div className="max-w-4xl mx-auto mb-24 animate-fade-in">
-                <h1 className="text-5xl md:text-6xl font-bold mb-8 tracking-wide text-center md:text-left">
-                  Apoie nosso <span className="text-primary uppercase">projeto</span>
-                </h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-8 tracking-wide text-center md:text-left">
+              Apoie nosso <span className="text-[#B91C1C] uppercase">projeto</span>
+            </h1>
             
             <div className="space-y-4 text-lg md:text-xl text-white/90 font-medium mb-12 text-center md:text-left">
-              <p>Apoie nosso projeto<br/>Fortalecendo a robótica universitária e a formação de engenheiros.</p>
+              <p>Fortalecendo a robótica universitária e a formação de engenheiros.</p>
               <p>Por isso, a ajuda externa é sempre uma excelente forma de incentivar o ensino, a tecnologia e a formação prática dentro da universidade.</p>
               <p>Atualmente, contamos com duas formas principais de apoio:</p>
             </div>
@@ -108,21 +144,31 @@ const Support = () => {
           {/* =========================================
               SEÇÃO 2: TABELA DE INVENTÁRIO
               ========================================= */}
-  
           <div ref={tableRef} className="max-w-5xl mx-auto pt-12 pb-24 animate-fade-in" style={{ animationDelay: "200ms" }}>
             
             {/* Cabeçalho da Tabela */}
             <div className="mb-10">
               <h2 className="text-3xl md:text-4xl font-bold text-white italic tracking-wider uppercase mb-2">
-                (FALTA IMPLEMENTAR)INVENTÁRIO SSL 2026
+                INVENTÁRIO SSL 2026
               </h2>
               <p className="text-muted-foreground font-semibold tracking-widest text-sm uppercase">
                 STATUS ATUAL DAS NECESSIDADES DO LABORATÓRIO
               </p>
             </div>
 
-            {/* Container da Tabela com borda fina */}
-            <div className="bg-[#0A0A0A]/60 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden">
+            {/* Container da Tabela */}
+            <div className="bg-[#0A0A0A]/60 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden relative min-h-[300px]">
+              
+              {/* Animação de Carregamento enquanto busca os dados do Sheets */}
+              {isLoading && (
+                <div className="absolute inset-0 bg-[#0A0A0A]/80 backdrop-blur-sm flex flex-col items-center justify-center z-20">
+                  <Loader2 className="w-10 h-10 text-[#B91C1C] animate-spin mb-4" />
+                  <p className="text-muted-foreground font-semibold tracking-wider text-sm animate-pulse">
+                    Sincronizando com a base de dados...
+                  </p>
+                </div>
+              )}
+
               <div className="overflow-x-auto">
                 <table className="w-full text-left border-collapse">
                   
@@ -133,13 +179,12 @@ const Support = () => {
                       <th className="px-8 py-6">MODELO</th>
                       <th className="px-8 py-6">QTD</th>
                       <th className="px-8 py-6">PREÇO EST.</th>
-                      <th className="px-8 py-6 text-center">AÇÃO</th>
                     </tr>
                   </thead>
                   
-                  {/* Linhas (Rows) */}
+                  {/* Linhas (Rows) Dinâmicas */}
                   <tbody className="text-sm font-semibold tracking-wide text-white/80">
-                    {INVENTORY_MOCK.map((item) => (
+                    {inventory.map((item) => (
                       <tr 
                         key={item.id} 
                         className="border-b border-white/5 hover:bg-white/5 transition-colors group"
@@ -148,24 +193,29 @@ const Support = () => {
                         <td className="px-8 py-6 text-muted-foreground">{item.model}</td>
                         <td className="px-8 py-6">{item.qty}</td>
                         <td className="px-8 py-6 text-[#B91C1C]">{item.price}</td>
-                        <td className="px-8 py-6 text-center">
-                          <button className="text-[#B91C1C] hover:text-white transition-colors p-2 rounded-full hover:bg-[#B91C1C]/20 inline-flex items-center justify-center">
-                            <Plus className="w-5 h-5" />
-                          </button>
-                        </td>
                       </tr>
                     ))}
                   </tbody>
 
                 </table>
+
+                {/* Mensagem caso não tenha nada na planilha */}
+                {!isLoading && inventory.length === 0 && (
+                  <div className="text-center py-12 text-muted-foreground">
+                    Nenhum item pendente no inventário.
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
 
-      <div ref={contactRef} className="relative z-10 w-full">
-        <SupportContact />
-      </div>
+        {/* =========================================
+            SEÇÃO 3: FORMULÁRIO DE APOIO
+            ========================================= */}
+        <div ref={contactRef} className="relative z-10 w-full">
+          <SupportContact />
+        </div>
 
       </main>
 

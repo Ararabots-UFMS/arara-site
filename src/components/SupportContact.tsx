@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
-import { HeartHandshake, Send, QrCode } from "lucide-react";
+import { HeartHandshake, Send } from "lucide-react";
 import { toast } from "sonner";
 import AnimatedGrid from "./AnimatedGrid";
 import AnimatedParticles from "./AnimatedParticles";
-// import emailjs from '@emailjs/browser'; // Descomente quando for plugar o EmailJS
+import emailjs from '@emailjs/browser';
 
 const SupportContact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -11,16 +11,37 @@ const SupportContact = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!form.current) return;
+    
     setIsSubmitting(true);
     
-    // Simulação de envio (Substitua pelo código do EmailJS depois)
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success("Mensagem enviada com sucesso!", {
-        description: "Agradecemos demais pelo seu interesse em apoiar a equipe.",
+    // ATENÇÃO: Preencha com as suas 4 chaves agora!
+    const SERVICE_ID = "service_u8cf4xh"; 
+    const TEMPLATE_ID_EQUIPE = "template_dwzynhe"; // O que vai para o ararabots.facom...
+    const TEMPLATE_ID_AUTOREPLY = "template_a04h21a"; // O que vai de agradecimento
+    const PUBLIC_KEY = "HebBg2s4FiqM9GU7E";
+
+    const enviarParaEquipe = emailjs.sendForm(SERVICE_ID, TEMPLATE_ID_EQUIPE, form.current, PUBLIC_KEY);
+    const enviarParaApoiador = emailjs.sendForm(SERVICE_ID, TEMPLATE_ID_AUTOREPLY, form.current, PUBLIC_KEY);
+
+    Promise.all([enviarParaEquipe, enviarParaApoiador])
+      .then((responses) => {
+        console.log("E-mails de apoio enviados com sucesso!", responses);
+        toast.success("Mensagem enviada com sucesso!", {
+          description: "Agradecemos demais pelo seu interesse em apoiar a equipe.",
+        });
+        form.current?.reset();
+      })
+      .catch((error) => {
+        console.error("Erro no envio:", error);
+        toast.error("Ops! Algo deu errado.", {
+          description: "Não conseguimos enviar sua mensagem. Tente novamente.",
+        });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
-      form.current?.reset();
-    }, 1500);
   };
 
   return (
@@ -31,9 +52,8 @@ const SupportContact = () => {
         
         <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
           
-          {/* LADO ESQUERDO: Chamada e Chave PIX */}
+          {/* LADO ESQUERDO: Chamada */}
           <div className="space-y-8 animate-fade-in">
-            
             <div className="bg-[#111111]/80 backdrop-blur-md border border-white/10 rounded-[2.5rem] p-10 flex flex-col justify-center shadow-2xl relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-[#B91C1C]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
@@ -45,23 +65,6 @@ const SupportContact = () => {
                 Seja doando componentes, ajudando nos custos de viagem ou compartilhando conhecimento, toda ajuda é fundamental para construirmos robôs cada vez melhores.
               </p>
             </div>
-
-            {/* Box de PIX Direto */}
-            <div className="bg-[#111111]/90 backdrop-blur-md border border-white/10 rounded-[2rem] p-8 flex items-center gap-6 shadow-2xl hover:border-[#B91C1C]/50 transition-colors group">
-              <div className="w-14 h-14 rounded-2xl bg-[#B91C1C]/10 border border-[#B91C1C]/20 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                <QrCode className="w-7 h-7 text-[#B91C1C]" />
-              </div>
-              <div>
-                <p className="text-muted-foreground text-sm font-semibold tracking-wide mb-1 uppercase">
-                  Apoio Direto via PIX
-                </p>
-                <p className="text-xl md:text-2xl font-bold text-white tracking-wider">
-                  CNPJ: 00.000.000/0000-00
-                </p>
-                <p className="text-sm text-muted-foreground mt-1">Associação AraraBots UFMS</p>
-              </div>
-            </div>
-
           </div>
 
           {/* LADO DIREITO: Formulário de Apoio */}
@@ -69,7 +72,7 @@ const SupportContact = () => {
             
             <div className="bg-[#111111]/90 backdrop-blur-md border border-white/10 rounded-[2rem] py-6 text-center shadow-2xl">
               <h3 className="text-3xl font-bold text-white tracking-wide">
-                (FALTA IMPLEMENTAR)Fale Conosco
+                Fale Conosco
               </h3>
             </div>
 
@@ -80,20 +83,20 @@ const SupportContact = () => {
             >
               <div className="space-y-5">
                 <select 
-                  name="tipo_apoio"
+                  name="assunto" // <-- MUDOU DE tipo_apoio PARA assunto
                   defaultValue=""
                   className="w-full bg-transparent border border-white/20 rounded-full px-6 py-4 text-muted-foreground focus:outline-none focus:border-primary/50 appearance-none cursor-pointer hover:border-white/40 transition-colors"
                   required
                 >
                   <option value="" disabled>Como você gostaria de apoiar?</option>
-                  <option value="Doação de Componentes" className="bg-[#111111] text-white">Tenho componentes para doar</option>
-                  <option value="Apoio Financeiro" className="bg-[#111111] text-white">Quero fazer um apoio financeiro</option>
-                  <option value="Outros" className="bg-[#111111] text-white">Outras formas de ajuda</option>
+                  <option value="Apoio: Doação de Componentes" className="bg-[#111111] text-white">Tenho componentes para doar</option>
+                  <option value="Apoio: Financeiro" className="bg-[#111111] text-white">Quero fazer um apoio financeiro</option>
+                  <option value="Apoio: Outros" className="bg-[#111111] text-white">Outras formas de ajuda</option>
                 </select>
 
                 <input 
                   type="text" 
-                  name="nome" 
+                  name="nome_empresa" // <-- MUDOU DE nome PARA nome_empresa
                   placeholder="Seu Nome" 
                   required
                   className="w-full bg-transparent border border-white/20 rounded-full px-6 py-4 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 hover:border-white/40 transition-colors"
@@ -101,14 +104,14 @@ const SupportContact = () => {
 
                 <input 
                   type="email" 
-                  name="email" 
+                  name="email_contato" // <-- MUDOU DE email PARA email_contato
                   placeholder="Seu E-mail" 
                   required
                   className="w-full bg-transparent border border-white/20 rounded-full px-6 py-4 text-white placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 hover:border-white/40 transition-colors"
                 />
 
                 <textarea 
-                  name="mensagem" 
+                  name="mensagem" // <-- CONTINUA IGUAL
                   placeholder="Conte um pouco sobre como quer nos ajudar..." 
                   required
                   rows={4}
