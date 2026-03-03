@@ -16,11 +16,15 @@ const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     
     setIsSubmitting(true);
     
-    // ATENÇÃO: Preencha com as suas 4 chaves agora!
-    const SERVICE_ID = "service_u8cf4xh"; 
-    const TEMPLATE_ID_EQUIPE = "template_dwzynhe"; // O que vai para o ararabots.facom...
-    const TEMPLATE_ID_AUTOREPLY = "template_a04h21a"; // O que vai de agradecimento
-    const PUBLIC_KEY = "HebBg2s4FiqM9GU7E";
+    const VITE_EMAILJS_SERVICE_ID="service_42t9s19"
+    const VITE_EMAILJS_TEMPLATE_EQUIPE="template_ir0bzj4"
+    const VITE_EMAILJS_TEMPLATE_AUTOREPLY="template_w7gh8yk"
+    const VITE_EMAILJS_PUBLIC_KEY="KGmmOijfX41dl3Duv"
+
+    const SERVICE_ID = VITE_EMAILJS_SERVICE_ID; 
+    const TEMPLATE_ID_EQUIPE = VITE_EMAILJS_TEMPLATE_EQUIPE; 
+    const TEMPLATE_ID_AUTOREPLY = VITE_EMAILJS_TEMPLATE_AUTOREPLY; 
+    const PUBLIC_KEY = VITE_EMAILJS_PUBLIC_KEY;
 
     // Criamos duas requisições separadas usando os mesmos dados do formulário
     const enviarParaEquipe = emailjs.sendForm(SERVICE_ID, TEMPLATE_ID_EQUIPE, form.current, PUBLIC_KEY);

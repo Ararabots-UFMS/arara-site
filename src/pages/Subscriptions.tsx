@@ -12,25 +12,25 @@ const SELECTION_STEPS = [
   {
     icon: <Ticket className="w-5 h-5 text-primary" />,
     title: "1. Inscrição Online",
-    date: "Aberto até 15/Mar (ficticio)",
+    date: "À definir",
     description: "Preencha seus dados para demonstrar interesse em fazer parte da AraraBot."
   },
   {
     icon: <Users className="w-5 h-5 text-primary" />,
     title: "2. Dinâmica em Grupo",
-    date: "20/Mar (ficticio)",
+    date: "À definir",
     description: "Um encontro presencial para avaliarmos trabalho em equipe e resolução de problemas lógicos."
   },
   {
     icon: <Zap className="w-5 h-5 text-primary" />,
     title: "3. Entrevista Técnica",
-    date: "25/Mar a 28/Mar (ficticio)",
+    date: "À definir",
     description: "Bate-papo focado nos seus interesses (Mecânica, Eletrônica, Programação ou Marketing)."
   },
   {
     icon: <Trophy className="w-5 h-5 text-primary" />,
     title: "4. Resultado Oficial",
-    date: "01/Abr (ficticio)",
+    date: "À definir",
     description: "Divulgação dos novos membros aprovados para integrar a equipe."
   }
 ];
