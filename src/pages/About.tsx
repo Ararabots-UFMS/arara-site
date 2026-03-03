@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import AnimatedGrid from "@/components/AnimatedGrid";
 import AnimatedParticles from "@/components/AnimatedParticles";
-import eventPhoto from "../assets/eventPhoto.png";
+import eventPhoto from "../assets/eventPhoto.jpg";
 import image2011 from "../assets/image2011.png";
 import image2012 from "../assets/image2012.jpg";
 import image2023 from "../assets/image2023.png";

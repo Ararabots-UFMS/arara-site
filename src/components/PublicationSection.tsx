@@ -17,7 +17,7 @@ import AnimatedParticles from "./AnimatedParticles";
 import ReadPublication, { Publication } from "./ReadPublication";
 import { usePublications } from "@/hooks/usePublications";
 
-const CATEGORIES = ["Todos", "Artigo", "Competição", "Extensão"];
+const CATEGORIES = ["Todos", "Artigo", "Competição", "Extensão", "Reconhecimento", "Mídia"];
 
 const PublicationCardSkeleton = () => (
   <Card className="bg-card/40 backdrop-blur-md border-white/5 overflow-hidden flex flex-col h-full">
