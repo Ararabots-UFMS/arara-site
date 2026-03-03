@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arara Bots - Nosso Robô</title>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* ================= NAVBAR ================= */
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 80px;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.logo {
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #aaa;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+nav a:hover { color: white; }
+nav a.active { color: #ff2d2d; }
+
+.support-btn {
+    background: #ff2d2d;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.support-btn:hover { transform: scale(1.05); }
+
+/* ================= CANVAS ================= */
+
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ================= SECTIONS ================= */
+
+main {
+    position: relative;
+    z-index: 2;
+}
+
+.info-section {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 8%;
+}
+
+.info-section.left { justify-content: flex-start; }
+
+.info-section.right { 
+    justify-content: flex-end; 
+    align-items: flex-end;
+    padding-bottom: 8%; 
+}
+
+.info-box {
+    max-width: 420px;
+    background: rgba(10,10,10,0.65);
+    backdrop-filter: blur(12px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,0,0,0.15);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+    opacity: 0;
+}
+
+.info-box h2 {
+    color: #ff2a2a;
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.info-box p {
+    color: #ccc;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+/* ================= FOOTER ================= */
+
+footer {
+    position: relative;
+    z-index: 10;
+    background: #000;
+    padding: 80px 8% 30px 8%;
+}
+
+.footer-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 80px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 40px;
+}
+
+.footer-left p {
+    color: #aaa;
+    margin-top: 15px;
+    line-height: 1.6;
+}
+
+.logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background: #111;
+    border: 1px solid #ff2d2d;
+    margin-bottom: 15px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.icon-placeholder {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: #111;
+    border: 1px solid #ff2d2d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+.footer-nav h4,
+.footer-contact h4 {
+    margin-bottom: 20px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.footer-nav ul {
+    list-style: none;
+}
+
+.footer-nav li {
+    margin-bottom: 12px;
+    color: #aaa;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-nav li:hover {
+    color: white;
+}
+
+.footer-contact p {
+    margin-bottom: 12px;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    color: #666;
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">ARARABOTS</div>
+    <nav>
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#" class="active">NOSSO ROBÔ</a></li>
+            <li><a href="#">CONQUISTAS</a></li>
+            <li><a href="#">PATROCÍNIO</a></li>
+            <li><a href="#">INGRESSO</a></li>
+            <li><a href="#">PUBLICAÇÕES</a></li>
+        </ul>
+    </nav>
+    <a href="#" class="support-btn">Apoiar Equipe</a>
+</header>
+
+<div id="canvas-container"></div>
+
+<main>
+    <section class="info-section left">
+        <div class="info-box">
+            <h2>Estrutura Externa</h2>
+            <p>Projetada para resistência máxima e desempenho sob impacto.</p>
+        </div>
+    </section>
+
+    <section class="info-section right">
+        <div class="info-box">
+            <h2>Estrutura Interna</h2>
+            <p>Lorem ipsulom</p>
+        </div>
+    </section>
+
+    <section class="info-section left">
+        <div class="info-box">
+            <h2>Movimentação</h2>
+            <p>Lorem ipsulom</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-container">
+
+        <div class="footer-left">
+            <div class="logo-placeholder"></div>
+            <h3>ARARA BOTS</h3>
+            <p>
+                Grupo de Robótica da Universidade<br>
+                Federal de Mato Grosso do Sul.<br>
+                Desenvolvendo o futuro.
+            </p>
+
+            <div class="social-icons">
+                <div class="icon-placeholder">IG</div>
+                <div class="icon-placeholder">IN</div>
+                <div class="icon-placeholder">GH</div>
+            </div>
+        </div>
+
+        <div class="footer-nav">
+            <h4>NAVEGAÇÃO</h4>
+            <ul>
+                <li>Home</li>
+                <li>Sobre Nós</li>
+                <li>Projetos</li>
+                <li>Patrocínio</li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h4>CONTATO</h4>
+            <p>contato@email.com</p>
+            <p>Inscrição LALA LALA</p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2016 Copyright Ararabot. Desenvolvido com paixão pela engenharia
+    </div>
+</footer>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+const container = document.getElementById('canvas-container');
+const scene = new THREE.Scene();
+scene.add(new THREE.AmbientLight(0xffffff, 1.0));
+
+const camera = new THREE.PerspectiveCamera(
+    40,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    2000
+);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.8; 
+
+container.appendChild(renderer.domElement);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+const mainLight = new THREE.DirectionalLight(0xffffff, 2);
+mainLight.position.set(100, 150, 100);
+scene.add(mainLight);
+
+const rimLight = new THREE.DirectionalLight(0xffffff, 1.5);
+rimLight.position.set(-100, 50, -150);
+scene.add(rimLight);
+
+const robotGroup = new THREE.Group();
+scene.add(robotGroup);
+
+let capaModel, internosModel;
+let loaded = 0;
+const loader = new GLTFLoader();
+
+const pmremGenerator = new THREE.PMREMGenerator(renderer);
+pmremGenerator.compileEquirectangularShader();
+
+new RGBELoader()
+    .load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/equirectangular/royal_esplanade_1k.hdr', function (texture) {
+        const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+        scene.environment = envMap;
+        texture.dispose();
+        pmremGenerator.dispose();
+    });
+
+const blackMaterial = new THREE.MeshStandardMaterial({
+    color: 0x666666, 
+    metalness: 0.9,  
+    roughness: 0.3,  
+    envMapIntensity: 1.2 
+});
+
+const internalMaterial = new THREE.MeshStandardMaterial({
+    color: 0xAAAAAA, 
+    metalness: 0.8,
+    roughness: 0.4,
+    envMapIntensity: 1.0
+});
+
+loader.load('robo_montado_colorido_rodas_pretas_v3.glb', gltf => {
+    internosModel = gltf.scene;
+    internosModel.traverse(o => {
+        if (o.isMesh) {
+            o.geometry.computeVertexNormals();
+            //o.material = internalMaterial;
+        }
+    });
+    robotGroup.add(internosModel);
+    checkLoad();
+});
+
+loader.load('capa.glb', gltf => {
+    capaModel = gltf.scene;
+    capaModel.traverse(o => {
+        if (o.isMesh) {
+            o.geometry.computeVertexNormals();
+            o.material = blackMaterial;
+        }
+    });
+    robotGroup.add(capaModel);
+    checkLoad();
+});
+
+function checkLoad() {
+    loaded++;
+    if (loaded === 2) {
+        const box = new THREE.Box3().setFromObject(robotGroup);
+        const center = box.getCenter(new THREE.Vector3());
+        const size = box.getSize(new THREE.Vector3());
+
+        internosModel.position.sub(center);
+        capaModel.position.sub(center);
+
+        robotGroup.rotation.x = -Math.PI / 2;
+
+        const maxDim = Math.max(size.x, size.y, size.z);
+
+        // Posição inicial da câmera (Visão geral da Estrutura Externa)
+        camera.position.set(maxDim * 0.4, maxDim * 0.9, maxDim * 3.4);
+        camera.lookAt(0, maxDim * 0.2, 0);
+
+        initAnimation(maxDim);
+        animate();
+    }
+}
+
+function initAnimation(maxDim) {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Animação de separação das peças (mantida na rolagem global)
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: "bottom bottom",
+            scrub: 1.2
+        }
+    });
+
+    const dist = maxDim * 1.2;
+    tl.to(capaModel.position, { z: dist }, 0);
+    tl.to(internosModel.position, { z: -dist * 0.2 }, 0);
+    tl.to(robotGroup.rotation, { z: Math.PI * 0.5 }, 0);
+
+    // Animação individual por seção
+    gsap.utils.toArray(".info-section").forEach((section, index) => {
+        const box = section.querySelector(".info-box");
+        const isLeft = section.classList.contains("left");
+
+        // Faz as caixas de texto entrarem na tela
+        gsap.fromTo(box,
+            { x: isLeft ? -250 : 250, opacity: 0 },
+            {
+                x: 0, opacity: 1, ease: "power3.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 55%",
+                    end: "top 45%",
+                    scrub: 1
+                }
+            }
+        );
+
+        // MOVIMENTOS DE CÂMERA DINÂMICOS
+        if (index === 1) { 
+            // Para "Sistema de Tração"
+            gsap.to(camera.position, {
+                x: maxDim * 0.8, // Move câmera pra direita (desloca robô pra esquerda visualmente)
+                y: maxDim * 0.4, // Baixa o ângulo de visão
+                z: maxDim * 1.8, // ZOOM IN! (Valor menor de Z aproxima)
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    end: "top 20%",
+                    scrub: 1
+                },
+                onUpdate: () => camera.lookAt(0, maxDim * 0.2, 0) // Mantém a câmera focada no robô
+            });
+        } else if (index === 2) { 
+            // Para "Eletrônica Interna"
+            gsap.to(camera.position, {
+                x: maxDim * -0.2, // Move câmera pra esquerda (desloca robô pra direita visualmente)
+                y: maxDim * 0.7,  // Sobe o ângulo um pouco
+                z: maxDim * 2.2,  // Recua um pouco o zoom para ver o contexto
+                ease: "power2.inOut",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    end: "top 20%",
+                    scrub: 1
+                },
+                onUpdate: () => camera.lookAt(0, maxDim * 0.2, 0)
+            });
+        }
+    });
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+}
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+
+</body>
+</html>
