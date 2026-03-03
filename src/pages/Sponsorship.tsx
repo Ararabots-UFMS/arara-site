@@ -54,7 +54,7 @@ const Sponsorship = () => {
 
       <Header />
 
-      <main className="flex-grow pb-6 relative overflow-hidden">
+      <main className="flex-grow relative overflow-hidden">
         
         {/* =========================================
             SEÇÃO 1: APRESENTAÇÃO (Estilo AboutSection)
@@ -144,7 +144,9 @@ const Sponsorship = () => {
 
           {/* SEÇÃO 4: CONTATO PARA PROPOSTAS DE PATROCÍNIO */}
 
-          <SponsorContact />
+          <div id="formulario-patrocinio">
+            <SponsorContact />
+          </div>
 
       </main>
 

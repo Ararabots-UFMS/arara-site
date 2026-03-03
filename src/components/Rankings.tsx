@@ -110,6 +110,11 @@ const RANKS = [
 ];
 
 const Rankings = () => {
+  const scrollToForm = () => {
+    const formSection = document.getElementById("formulario-patrocinio");
+    formSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section className="py-24 relative z-10 font-spartan">
       <AnimatedParticles />
@@ -159,10 +164,14 @@ const Rankings = () => {
                   </div>
                 </div>
 
+
                 {/* Botão */}
-                <button className="w-full bg-[#991B1B] hover:bg-[#B91C1C] text-white rounded-full py-3 px-6 flex items-center justify-between transition-colors shadow-lg shadow-red-900/20 shrink-0">
+                <button 
+                  onClick={scrollToForm}
+                  className="w-full bg-[#991B1B] hover:bg-[#B91C1C] text-white rounded-full py-3 px-6 flex items-center justify-between transition-colors shadow-lg shadow-red-900/20 shrink-0"
+                >
                   <span className="text-sm font-semibold tracking-wider">
-                    escolher este rank
+                    Escolher este rank
                   </span>
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
