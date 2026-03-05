@@ -25,13 +25,13 @@ const HeroSection = () => {
             </p>
             <div className="flex flex-wrap gap-4">
               <a
-                href="/publicacoes"
+                href="/arara-site/publicacoes"
                 className="bg-foreground text-background px-4 py-4 rounded-full font-semibold hover:bg-foreground/90 transition-colors"
               >
                 Nossas Publicações
               </a>
               <a
-                href="/sobre"
+                href="/arara-site/sobre"
                 className="border-2 border-primary text-foreground px-4 py-4 rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
               >
                 Conheça a Equipe

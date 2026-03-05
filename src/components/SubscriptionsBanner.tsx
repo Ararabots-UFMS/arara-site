@@ -14,6 +14,7 @@ import hackathon1 from "@/assets/hackathon-1.jpeg";
 import hackathon2 from "@/assets/hackathon-2.jpeg";
 import hackathon3 from "@/assets/hackathon-3.jpeg";
 import hackathon4 from "@/assets/hackathon-4.jpeg";
+import AnimatedParticles from "@/components/AnimatedParticles";
 
 const hackathonImages = [
   {
@@ -37,6 +38,7 @@ const hackathonImages = [
 const SubscriptionsBanner = () => {
   return (
     <div className="container mx-auto px-6 py-16">
+      <AnimatedParticles />
       <div className="max-w-5xl mx-auto space-y-10">
         
         {/* Seção de Texto */}
@@ -109,7 +111,7 @@ const SubscriptionsBanner = () => {
             className="h-14 px-10 text-lg font-bold rounded-lg shadow-lg shadow-primary/20 group/btn"
             asChild
           >
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdP0QAhAjzWePOA1RWnHK6LA4dZ8q3Cz50UYDWNN0Lw-e-B8w/viewform" target="_blank" rel="noopener noreferrer">
+            <a href="/arara-site/inscricao" target="_blank" rel="noopener noreferrer">
               Inscreva-se Agora
               <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
             </a>
