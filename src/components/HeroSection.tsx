@@ -1,6 +1,8 @@
 import AnimatedGrid from "./AnimatedGrid";
 import teamPhoto from "../assets/teamPhoto.png";
 import AnimatedParticles from "./AnimatedParticles";
+import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
@@ -24,20 +26,33 @@ const HeroSection = () => {
               vencer os maiores desafios competitivos da robótica universitária.
             </p>
             <div className="flex flex-wrap gap-4">
-              <a
-                href="/arara-site/publicacoes"
-                className="bg-foreground text-background px-4 py-4 rounded-full font-semibold hover:bg-foreground/90 transition-colors"
+
+
+
+            <div className="text-center">
+              <Button 
+                size="lg" 
+                className="bg-foreground text-background px-8 py-8 rounded-full font-semibold hover:bg-foreground/90 transition-colors"
+                asChild
               >
-                Nossas Publicações
-              </a>
-              <a
-                href="/arara-site/sobre"
-                className="border-2 border-primary text-foreground px-4 py-4 rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
-              >
-                Conheça a Equipe
-              </a>
+                <Link to="/publicacoes">
+                  Nossas Publicações
+                  </Link>
+              </Button>
+            </div>
+
+            <div className="text-center">
+              <Button 
+                size="lg"
+                className="border-2 border-primary text-foreground px-8 py-8 rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
+                  >
+                  <Link to="/sobre">
+                    Conheça a Equipe
+                  </Link>
+                </Button>
             </div>
           </div>
+        </div>
 
           <div className="animate-slide-in-right hidden lg:block">
             <div className="relative">

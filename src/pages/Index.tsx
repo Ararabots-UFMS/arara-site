@@ -58,7 +58,7 @@ const Index = () => {
           <HeroSection/>
         </section>
 
-        <section id="inscricoes" className="bg-background">
+        <section id="inscricoes">
           <SubscriptionsBanner />
         </section>
 
