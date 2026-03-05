@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "@/components/ScrollToTop";
 import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
@@ -13,6 +13,7 @@ import Publications from "./pages/Publications";
 import Subscriptions from "./pages/Subscriptions";
 import About from "./pages/About";
 import InProduction from "./pages/InProduction";
+import { Hash } from "lucide-react";
 
 const queryClient = new QueryClient();
 
@@ -23,7 +24,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         {/* <BrowserRouter> */}
-        <BrowserRouter basename="/arara-site">
+        <HashRouter>
         <ScrollToTop/>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -36,7 +37,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
         </Routes>
-        </BrowserRouter>
+        </HashRouter>
         {/* </BrowserRouter> */}
       </TooltipProvider>
     </HelmetProvider>

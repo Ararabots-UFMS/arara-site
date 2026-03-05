@@ -32,7 +32,7 @@ const HeroSection = () => {
             <div className="text-center">
               <Button 
                 size="lg" 
-                className="bg-foreground text-background px-8 py-8 rounded-full font-semibold hover:bg-foreground/90 transition-colors"
+                className="h-14 px-10 text-lg font-bold rounded-lg shadow-lg shadow-red-900/20 group/btn bg-[#FFFFFF] hover:bg-gray-200 text-black"
                 asChild
               >
                 <Link to="/publicacoes">
@@ -44,7 +44,7 @@ const HeroSection = () => {
             <div className="text-center">
               <Button 
                 size="lg"
-                className="border-2 border-primary text-foreground px-8 py-8 rounded-full font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
+                className="h-14 px-10 text-lg font-bold rounded-lg shadow-lg shadow-red-900/20 group/btn bg-[#B91C1C] hover:bg-red-800 text-white transition-colors"
                   >
                   <Link to="/sobre">
                     Conheça a Equipe
