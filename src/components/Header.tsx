@@ -11,7 +11,7 @@ const Header = () => {
   // ou usamos rotas absolutas para páginas novas
   const navLinks = [
     { label: "SOBRE NÓS", href: "/sobre" },
-    { label: "NOSSO ROBÔ", href: "#robo" },
+    { label: "NOSSO ROBÔ", href: "/robo" },
     { label: "PUBLICAÇÕES", href: "/publicacoes" },
     { label: "INGRESSO", href: "/inscricao" },
     { label: "PATROCÍNIO", href: "/patrocinio" }
