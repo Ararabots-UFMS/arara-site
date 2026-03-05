@@ -21,7 +21,8 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        {/* <BrowserRouter> */}
+        <BrowserRouter basename="/arara-site">
         <ScrollToTop/>
           <Routes>
             <Route path="/" element={<Index />} />
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
         </Routes>
         </BrowserRouter>
+        {/* </BrowserRouter> */}
       </TooltipProvider>
     </HelmetProvider>
   </QueryClientProvider>
