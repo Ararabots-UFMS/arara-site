@@ -12,32 +12,38 @@ const SELECTION_STEPS = [
   {
     icon: <Ticket className="w-5 h-5 text-primary" />,
     title: "1. Inscrição Online",
-    date: "À definir",
-    description: "Preencha seus dados para demonstrar interesse em fazer parte da AraraBot."
+    date: "5/03/2026 - 20/03/2026",
+    description: "Preencha seus dados para demonstrar interesse em participar do Hackathon AraraBots."
   },
   {
     icon: <Users className="w-5 h-5 text-primary" />,
-    title: "2. Dinâmica em Grupo",
-    date: "À definir",
-    description: "Um encontro presencial para avaliarmos trabalho em equipe e resolução de problemas lógicos."
+    title: "2. Avaliação dos Inscritos",
+    date: "21/03/2026 - 22/03/2026",
+    description: "Análise dos inscritos para definir os participantes que irão para o Hackathon."
   },
   {
     icon: <Zap className="w-5 h-5 text-primary" />,
-    title: "3. Entrevista Técnica",
-    date: "À definir",
-    description: "Bate-papo focado nos seus interesses (Mecânica, Eletrônica, Programação ou Marketing)."
+    title: "3. Divulgação dos Selecionados",
+    date: "23/03/2026",
+    description: "Divulgação da lista de participantes selecionados para o Hackathon."
+  },
+  {
+    icon: <Bot className="w-5 h-5 text-primary" />,
+    title: "4. Hackathon",
+    date: "11/04/2026",
+    description: "Maratona de inovação em robótica com Arduino e desenvolvimento de projetos."
   },
   {
     icon: <Trophy className="w-5 h-5 text-primary" />,
-    title: "4. Resultado Oficial",
-    date: "À definir",
-    description: "Divulgação dos novos membros aprovados para integrar a equipe."
+    title: "5. Divulgação dos Novos Membros",
+    date: "13/04/2026",
+    description: "Divulgação dos novos membros aprovados para integrar a equipe AraraBots."
   }
 ];
 
 const Subscriptions = () => {
   // Coloque o link real do Google Forms da equipe aqui 👇
-  const GOOGLE_FORMS_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfmiCgYEHvRqJHrNCBMOkjieMT82yBlKg9umjifEbud7ucorg/viewform?usp=header"; 
+  const GOOGLE_FORMS_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdP0QAhAjzWePOA1RWnHK6LA4dZ8q3Cz50UYDWNN0Lw-e-B8w/viewform"; 
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
