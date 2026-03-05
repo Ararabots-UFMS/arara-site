@@ -1,18 +1,23 @@
 import logo from "@/assets/logo.png";
 import { Instagram, Linkedin, Github, Mail, User } from "lucide-react";
+import { Link } from "react-router-dom"; // <--- Importação do Link adicionada!
 
 const Footer = () => {
+  // 1. Limpamos o "/arara-site" das URLs. O React Router adiciona isso sozinho agora.
+  // 2. Trocamos o href "Home" para "/" para garantir a navegação pro topo.
   const navigationLinks = [
-    { label: "Home", href: "#home" },
-    { label: "Sobre Nós", href: "/arara-site/sobre" },
-    { label: "Publicações", href: "/arara-site/publicacoes" },
-    { label: "Patrocínio", href: "/arara-site/patrocinio" },
+    { label: "Home", href: "/" },
+    { label: "Sobre Nós", href: "/sobre" },
+    { label: "Publicações", href: "/publicacoes" },
+    { label: "Patrocínio", href: "/patrocinio" },
   ];
 
   return (
-    <footer className="bg-background border-t border-border py-16">
+    <footer className="bg-background border-t border-border py-16 font-spartan">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
+          
+          {/* LADO ESQUERDO: Sobre */}
           <div>
             <div className="flex items-center gap-3 mb-1">
               <img src={logo} alt="Arara Bots" className="h-10 w-auto" />
@@ -25,8 +30,9 @@ const Footer = () => {
             <div className="flex gap-4">
               <a
                 href="https://www.instagram.com/ararabots/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-primary hover:text-primary/80 transition-colors"
-                aria-label="Instagram"
               >
                 <Instagram size={24} />
               </a>
@@ -44,30 +50,36 @@ const Footer = () => {
               >
                 <Github size={24} />
               </a>
+              {/* Se depois tiverem outras redes sociais, basta adicionar os ícones importados aqui */}
             </div>
           </div>
+          
+          {/* MEIO: Navegação */}
           <div>
             <h3 className="text-lg font-bold text-foreground mb-4">NAVEGAÇÃO</h3>
             <ul className="space-y-3">
               {navigationLinks.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
+                  {/* Substituímos a tag <a> pelo <Link> */}
+                  <Link
+                    to={link.href}
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
+          
+          {/* DIREITA: Contato */}
           <div>
             <h3 className="text-lg font-bold text-foreground mb-4">CONTATO</h3>
             <ul className="space-y-3">
               <li className="flex items-center gap-3">
                 <Mail size={18} className="text-primary" />
                 <a
-                  href="ararabots.facom@ufms.br"
+                  href="mailto:ararabots.facom@ufms.br"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   ararabots.facom@ufms.br
@@ -75,16 +87,20 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <User size={18} className="text-primary" />
-                  <a
-                    href="/arara-site/inscricao"
+                  {/* Trocamos <a> por <Link> aqui também */}
+                  <Link
+                    to="/inscricao"
                     className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <span className="text-muted-foreground">Inscrições Abertas</span>
-                  </a>
+                  </Link>
               </li>
             </ul>
           </div>
+
         </div>
+        
+        {/* DIREITOS AUTORAIS */}
         <div className="border-t border-border pt-8">
           <p className="text-center text-muted-foreground text-sm">
             © 2010 Copyright: Ararabots. Desenvolvido com paixão pela engenharia.
