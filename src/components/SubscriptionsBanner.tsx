@@ -19,19 +19,19 @@ import AnimatedParticles from "@/components/AnimatedParticles";
 const hackathonImages = [
   {
     src: hackathon1,
-    alt: "Hackathon AraraBot 2025.1 - Equipes trabalhando",
+    alt: "Hackathon AraraBots 2025.1 - Equipes trabalhando",
   },
   {
     src: hackathon2,
-    alt: "Hackathon AraraBot 2025.1 - Apresentação de projetos",
+    alt: "Hackathon AraraBots 2025.1 - Apresentação de projetos",
   },
   {
     src: hackathon3,
-    alt: "Hackathon AraraBot 2025.1 - Robôs em ação",
+    alt: "Hackathon AraraBots 2025.1 - Robôs em ação",
   },
   {
     src: hackathon4,
-    alt: "Hackathon AraraBot 2025.1 - Premiação",
+    alt: "Hackathon AraraBots 2025.1 - Premiação",
   },
 ];
 
@@ -78,7 +78,7 @@ const SubscriptionsBanner = () => {
           {/* Carrossel de Imagens */}
           <div className="max-w-3xl mx-auto space-y-3">
             <p className="text-sm text-center text-muted-foreground">
-              Fotos do Hackathon AraraBot 2025.1
+              Fotos do Hackathon AraraBots 2025.1
             </p>
             <Carousel
               opts={{
