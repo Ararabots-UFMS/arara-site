@@ -106,14 +106,14 @@ const Subscriptions = () => {
 
             {/* LADO DIREITO: Card "Inscreva-se Agora" */}
             <div className="lg:col-span-2 flex flex-col items-center gap-6">
-              {/* Mascote Lia acima do Card
+              {/* Mascote Lia acima do Card */}
               <div className="animate-bounce">
                 <img 
                   src={lia} 
                   alt="Lia - Mascote AraraBot" 
                   className="h-40 w-auto drop-shadow-lg"
                 />
-              </div> */}
+              </div>
               
               <Card className="bg-card/60 backdrop-blur-xl border-white/10 shadow-2xl relative overflow-hidden group w-full">
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary/50 to-primary" />
