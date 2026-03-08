@@ -102,11 +102,10 @@ const Sponsorship = () => {
                   </p>
                   
                   <p className="text-muted-foreground text-lg leading-relaxed">
-                    Torne-se um patrocinador bronze, prata, ouro ou platina! Como estudantes, contamos com o seu apoio neste projeto para que possamos continuar a participar, com sucesso, em eventos de robótica.
-                  </p>
+                    Torne-se um patrocinador bronze, prata, ouro ou diamante! Como estudantes, contamos com o apoio de parceiros para continuar desenvolvendo nossos projetos e representando a universidade em competições e eventos de robótica.                  </p>
                   
                   <p className="text-muted-foreground text-lg leading-relaxed">
-                    Nesta temporada você está nos capacitando através de um patrocínio à não só participar na Competição Brasileira de Robótica em Goiânia (GO), mas também melhorar nossos robôs.
+                    Com o seu patrocínio, você contribui diretamente para o desenvolvimento dos nossos robôs, a participação da equipe em competições nacionais e a formação prática de estudantes por meio de atividades de ensino, pesquisa e extensão.
                   </p>
 
                   <div className="border-l-4 border-primary pl-6">
@@ -114,10 +113,13 @@ const Sponsorship = () => {
                       O que isso significa para você?
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      Além de anunciar e apoiar um grupo jovem e dinâmico através do seu envolvimento no projeto, você também terá contato com alunos talentosos de diversos cursos da UFMS. Abaixo você encontrará uma lista de possíveis pacotes de patrocínio e as vantagens que podemos oferecer a você.
+                      Além de apoiar um grupo jovem, dedicado e inovador, sua empresa também ganha visibilidade ao se associar a um projeto acadêmico e tecnológico. Você também terá contato com alunos talentosos de diversos cursos da UFMS, futuros profissionais das áreas de engenharia, computação e inovação.
                     </p>
                     <p className="mt-4 font-semibold text-foreground">
-                      Desde já gostaríamos de agradecer seu apoio.
+                      Abaixo você encontrará os possíveis pacotes de patrocínio e as vantagens que podemos oferecer.
+                    </p>
+                    <p className="mt-2 text-muted-foreground">
+                      Desde já agradecemos pelo seu apoio e interesse em fortalecer a robótica universitária.
                     </p>
                   </div>
                 </div>

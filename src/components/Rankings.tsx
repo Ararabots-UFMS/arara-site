@@ -155,7 +155,7 @@ const Rankings = () => {
                   <div className="space-y-4">
                     {rank.features.map((feature, i) => (
                       <div key={i} className="flex items-start gap-3">
-                        <CheckCircle2 className="w-5 h-5 text-[#B91C1C] fill-[#B91C1C]/20 shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-5 h-5 text-[#10b981] fill-[#10b981]/20 shrink-0 mt-0.5" />
                         <span className="text-sm font-medium text-white/80 tracking-wide leading-relaxed">
                           {feature}
                         </span>

@@ -20,7 +20,7 @@ const Footer = () => {
           {/* LADO ESQUERDO: Sobre */}
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <img src={logo} alt="Arara Bots" className="h-10 w-auto" />
+              <img src={logo} alt="AraraBot" className="h-10 w-auto" />
               <span className="text-lg font-bold text-foreground">ARARABOTS</span>
             </div>
             <p className="text-muted-foreground text-md leading-relaxed mb-4">

@@ -6,13 +6,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Ticket, ArrowRight, Bot, Users, Zap, Trophy } from "lucide-react";
 import AnimatedGrid from "@/components/AnimatedGrid";
 import AnimatedParticles from "@/components/AnimatedParticles";
+import lia from "@/assets/Lia.png";
 
 // --- DADOS DO ESQUEMA (LINHA DO TEMPO) ---
 const SELECTION_STEPS = [
   {
     icon: <Ticket className="w-5 h-5 text-primary" />,
     title: "1. Inscrição Online",
-    date: "5/03/2026 - 20/03/2026",
+    date: "05/03/2026 - 20/03/2026",
     description: "Preencha seus dados para demonstrar interesse em participar do Hackathon AraraBots."
   },
   {
@@ -48,7 +49,7 @@ const Subscriptions = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Ingressos e Inscrições | AraraBot</title>
+        <title>Ingressos e Inscrições | AraraBots</title>
         <meta name="description" content="Garanta seu lugar nos eventos e processos seletivos da equipe AraraBot." />
       </Helmet>
 
@@ -71,8 +72,8 @@ const Subscriptions = () => {
             {/* LADO ESQUERDO: Esquema / Timeline */}
             <div className="lg:col-span-3 space-y-8">
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                  Faça parte do time <span className="text-primary">ARARA</span>
+                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight whitespace-nowrap">
+                  Faça parte do time <span className="text-primary">ARARABOTS!</span>
                 </h1>
                 <p className="text-lg text-muted-foreground">
                   Entenda como funciona nossa jornada de seleção antes de realizar sua inscrição.
@@ -104,8 +105,17 @@ const Subscriptions = () => {
             </div>
 
             {/* LADO DIREITO: Card "Inscreva-se Agora" */}
-            <div className="lg:col-span-2">
-              <Card className="bg-card/60 backdrop-blur-xl border-white/10 shadow-2xl relative overflow-hidden group">
+            <div className="lg:col-span-2 flex flex-col items-center gap-6">
+              {/* Mascote Lia acima do Card
+              <div className="animate-bounce">
+                <img 
+                  src={lia} 
+                  alt="Lia - Mascote AraraBot" 
+                  className="h-40 w-auto drop-shadow-lg"
+                />
+              </div> */}
+              
+              <Card className="bg-card/60 backdrop-blur-xl border-white/10 shadow-2xl relative overflow-hidden group w-full">
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary/50 to-primary" />
                 <div className="absolute -right-20 -top-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/20 transition-all duration-500" />
                 

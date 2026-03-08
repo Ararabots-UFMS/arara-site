@@ -150,7 +150,7 @@ const About = () => {
                   <div className="border-l-4 border-primary pl-6">
                     <h3 className="text-xl font-bold text-foreground mb-2">A Categoria SSL</h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      A Small Size League (SSL) é uma categoria da RoboCup onde robôs autônomos jogam futebol em miniatura. Esta liga impulsiona o avanço em robótica autônoma, controle em tempo real e visão computacional.
+                      A Small Size League (SSL) é uma categoria da RoboCup em que robôs autônomos competem em partidas de futebol em miniatura. Nessa modalidade, duas equipes, com até seis robôs cada, disputam partidas utilizando sistemas de visão computacional para identificar a posição da bola e dos robôs em tempo real e enviar comandos para suas ações durante o jogo.
                     </p>
                   </div>
                   <div className="border-l-4 border-primary pl-6">

@@ -61,7 +61,7 @@ const HeroSection = () => {
               <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 shadow-2xl">
                 <img
                   src={teamPhoto}
-                  alt="Equipe Arara Bots"
+                  alt="Equipe AraraBot"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>

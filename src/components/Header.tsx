@@ -59,7 +59,7 @@ const Header = () => {
             onClick={(e) => handleNavClick(e, "#home")}
             className="flex items-center gap-3 group cursor-pointer"
           >
-            <img src={logo} alt="Arara Bots" className="h-12 w-auto" />
+            <img src={logo} alt="AraraBot" className="h-12 w-auto" />
             <span className="text-xl font-bold text-foreground transition-colors group-hover:text-primary">
               ARARABOTS
             </span>
