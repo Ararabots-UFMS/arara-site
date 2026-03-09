@@ -49,10 +49,10 @@ const SponsorWheel = () => {
         {/* Título Estilo Pílula */}
         <FadeIn>
           <div className="text-center mb-16">
-            <div className="inline-block border border-white/10 bg-[#0A0A0A]/60 backdrop-blur-xl rounded-full px-8 md:px-12 py-4 shadow-2xl">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-widest uppercase">
-                <span className="text-white">NOSSOS </span>
-                <span className="text-primary drop-shadow-[0_0_15px_rgba(220,38,38,0.8)]">PATROCINADORES</span>
+            <div className="mx-auto w-fit border border-white/10 bg-[#0A0A0A]/60 backdrop-blur-xl rounded-full px-6 sm:px-8 md:px-12 py-4 shadow-2xl">
+              <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-bold tracking-wide uppercase leading-tight">
+                <span className="block sm:inline text-white">NOSSOS</span>
+                <span className="block sm:inline sm:ml-2 text-primary drop-shadow-[0_0_15px_rgba(220,38,38,0.8)]">PATROCINADORES</span>
               </h2>
             </div>
           </div>

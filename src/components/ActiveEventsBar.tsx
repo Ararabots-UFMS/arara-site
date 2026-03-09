@@ -48,14 +48,14 @@ const ActiveEventsBar = () => {
     () => [
       {
         id: "oficina",
-        title: "Oficina de Robotica Pratica",
+        title: "Oficina de Robótica Prática",
         date: new Date(2026, 2, 14),
-        time: "08h as 11h",
+        time: "08h às 11h",
         location: "Living Lab (Rua Brasil, 205)",
         status: "open",
         image: oficina14,
         description:
-          "A nossa proxima missao ja tem data marcada! A equipe Ararabots preparou uma oficina exclusiva para quem quer sair da teoria e colocar a mao na massa. Essa e a sua chance de vivenciar o laboratorio e aprender as bases da robotica de forma pratica e colaborativa.",
+          "A nossa próxima missão já tem data marcada! A equipe AraraBots preparou uma oficina exclusiva para quem quer sair da teoria e colocar a mão na massa. Essa é a sua chance de vivenciar o laboratório e aprender as bases da robótica de forma prática e colaborativa.",
         primaryAction: {
           label: "Inscrever-se na Oficina",
           href: "https://docs.google.com/forms/d/e/1FAIpQLSdhwYpctUVzV-cNHblhZVAHqD49ewf7-FLrvaB1gT6jVOtifw/viewform",
@@ -70,12 +70,12 @@ const ActiveEventsBar = () => {
       },
       {
         id: "proxima",
-        title: "Proxima Oficina",
+        title: "Próxima Oficina",
         date: new Date(2026, 3, 25),
         location: "Living Lab",
         status: "soon",
         description:
-          "Proximo evento da equipe Ararabots. Em breve as informacoes completas serao divulgadas. Fique ligado no Instagram para nao perder nenhuma novidade.",
+          "Próximo evento da equipe AraraBots. Em breve as informações completas serão divulgadas. Fique ligado no Instagram para não perder nenhuma novidade.",
         secondaryAction: {
           label: "Seguir no Instagram",
           href: "https://www.instagram.com/ararabots/",
@@ -129,7 +129,7 @@ const ActiveEventsBar = () => {
           <div>
             <div className="flex items-center gap-2 text-primary mb-2">
               <div className="h-[2px] w-8 bg-primary" />
-              <span className="text-xs font-bold uppercase tracking-widest">Proximas Atividades</span>
+              <span className="text-xs font-bold uppercase tracking-widest">Próximas Atividades</span>
             </div>
             <h3 className="text-2xl md:text-3xl font-black text-foreground">
               Arara <span className="text-primary">Agenda</span>
@@ -140,11 +140,11 @@ const ActiveEventsBar = () => {
             <div className="flex flex-wrap items-center gap-3 text-sm text-foreground">
               <span className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
                 <span className="h-2 w-2 rounded-full bg-primary-foreground animate-pulse" />
-                {nearestEvent.status === "open" ? "Inscricoes Abertas" : "Em Breve"}
+                {nearestEvent.status === "open" ? "Inscrições Abertas" : "Em Breve"}
               </span>
               <span className="inline-flex items-center gap-2 text-muted-foreground">
                 <Timer className="h-4 w-4 text-primary" />
-                Proximo evento: {nearestEvent.title} em {formatEventDate(nearestEvent.date)}
+                Próximo evento: {nearestEvent.title} em {formatEventDate(nearestEvent.date)}
                 {daysUntilNearest >= 0 ? ` (${daysUntilNearest} dias)` : ""}
               </span>
             </div>
@@ -191,7 +191,7 @@ const ActiveEventsBar = () => {
                             eventCard.status === "open" ? "bg-primary-foreground" : "bg-muted-foreground"
                           }`}
                         />
-                        {eventCard.status === "open" ? "Inscricoes Abertas" : "Em Breve"}
+                        {eventCard.status === "open" ? "Inscrições Abertas" : "Em Breve"}
                       </span>
 
                       <p className="font-semibold text-foreground text-sm md:text-base">{eventCard.title}</p>

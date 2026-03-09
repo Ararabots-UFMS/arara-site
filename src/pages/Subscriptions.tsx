@@ -55,7 +55,7 @@ const Subscriptions = () => {
 
       <Header />
 
-      <main className="flex-grow pt-32 pb-16 relative overflow-hidden">
+      <main className="flex-grow pt-28 md:pt-32 pb-12 md:pb-16 relative overflow-hidden">
         
         {/* Background Decorativo */}
 
@@ -65,17 +65,17 @@ const Subscriptions = () => {
         <AnimatedParticles />
         
 
-        <div className="container mx-auto px-6 relative z-10 min-h-[60vh] flex flex-col justify-center">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10 min-h-[60vh] flex flex-col justify-center">
           
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center max-w-6xl mx-auto w-full animate-fade-in">
             
             {/* LADO ESQUERDO: Esquema / Timeline */}
             <div className="lg:col-span-3 space-y-8">
               <div>
-                <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight whitespace-nowrap">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight break-words">
                   Faça parte do time <span className="text-primary">ARARABOTS!</span>
                 </h1>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-base sm:text-lg text-muted-foreground">
                   Entenda como funciona nossa jornada de seleção antes de realizar sua inscrição.
                 </p>
               </div>
@@ -91,10 +91,10 @@ const Subscriptions = () => {
                     </div>
                     
                     {/* Card do Passo */}
-                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-4 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card/60">
+                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-3rem)] p-3 sm:p-4 rounded-2xl bg-card/40 border border-white/5 backdrop-blur-sm transition-all hover:border-primary/30 hover:bg-card/60">
                       <div className="flex flex-col mb-1">
-                        <span className="text-primary font-bold text-sm tracking-wide uppercase">{step.date}</span>
-                        <h3 className="text-xl font-bold text-foreground">{step.title}</h3>
+                        <span className="text-primary font-bold text-xs sm:text-sm tracking-wide uppercase">{step.date}</span>
+                        <h3 className="text-lg sm:text-xl font-bold text-foreground">{step.title}</h3>
                       </div>
                       <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
                     </div>
@@ -111,7 +111,7 @@ const Subscriptions = () => {
                 <img 
                   src={lia} 
                   alt="Lia - Mascote AraraBot" 
-                  className="h-40 w-auto drop-shadow-lg"
+                  className="h-28 sm:h-36 md:h-40 w-auto drop-shadow-lg"
                 />
               </div>
               
@@ -119,14 +119,14 @@ const Subscriptions = () => {
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary/50 to-primary" />
                 <div className="absolute -right-20 -top-20 w-40 h-40 bg-primary/10 rounded-full blur-3xl pointer-events-none group-hover:bg-primary/20 transition-all duration-500" />
                 
-                <CardContent className="p-8 md:p-10 flex flex-col items-center text-center space-y-6">
-                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-2">
-                    <Bot className="w-10 h-10 text-primary" />
+                <CardContent className="p-6 sm:p-8 md:p-10 flex flex-col items-center text-center space-y-5 sm:space-y-6">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/10 flex items-center justify-center mb-1 sm:mb-2">
+                    <Bot className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
                   </div>
                   
-                  <h2 className="text-3xl font-bold">Pronto para o desafio?</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold">Pronto para o desafio?</h2>
                   
-                  <p className="text-muted-foreground">
+                  <p className="text-sm sm:text-base text-muted-foreground">
                     As vagas são limitadas. Garanta seu lugar no maior projeto de robótica da região e transforme sua carreira acadêmica.
                   </p>
                   

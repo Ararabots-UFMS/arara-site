@@ -104,20 +104,20 @@ const About = () => {
 
       <Header />
 
-      <main className="flex-grow pb-16">
+      <main className="flex-grow pb-12 md:pb-16">
         
         {/* =========================================
             SEÇÃO 1: QUEM SOMOS (Antigo AboutSection)
             ========================================= */}
-        <section className="relative pt-28 pb-16 overflow-hidden">
+        <section className="relative pt-24 md:pt-28 pb-12 md:pb-16 overflow-hidden">
           <AnimatedGrid />
           <AnimatedParticles />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/90 to-background z-[1]" />
           
-          <div className="container mx-auto px-6 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <FadeInOnScroll>
               <div className="mb-16">
-                <h2 className="text-4xl md:text-5xl font-bold uppercase tracking-wide">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold uppercase tracking-wide">
                   QUEM <span className="text-primary">SOMOS</span>
                 </h2>
                 <div className="w-24 h-1 bg-primary mt-4" />
@@ -140,10 +140,10 @@ const About = () => {
 
               <FadeInOnScroll delay={200}>
                 <div className="space-y-8">
-                  <p className="text-foreground text-lg leading-relaxed">
+                  <p className="text-foreground text-base sm:text-lg leading-relaxed">
                     O <strong>Ararabots</strong> é a equipe de robótica da <strong className="text-primary">UFMS</strong>, voltada a competições e projetos de extensão. Promovemos o aprendizado em software, inteligência artificial, visão computacional, modelagem e impressão 3D, além de trabalho em equipe e gestão.
                   </p>
-                  <p className="text-muted-foreground text-lg leading-relaxed">
+                  <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
                     Os integrantes são responsáveis pelo projeto dos robôs e pela administração da equipe, transformando desafios técnicos em soluções reais.
                   </p>
 
@@ -168,14 +168,14 @@ const About = () => {
         {/* =========================================
             SEÇÃO 2: NOSSA TRAJETÓRIA (TIMELINE)
             ========================================= */}
-        <section className="relative py-24 bg-background">
+        <section className="relative py-16 md:py-24 bg-background">
               <AnimatedParticles />
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-4 sm:px-6">
             
             {/* Título da Trajetória */}
             <FadeInOnScroll>
-              <div className="text-center mb-24">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-wide uppercase mb-2">
+              <div className="text-center mb-16 md:mb-24">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-wide uppercase mb-2">
                   NOSSA TRAJETÓRIA
                 </h2>
                 <p className="text-primary font-bold tracking-[0.2em] text-sm uppercase">
@@ -215,7 +215,7 @@ const About = () => {
                     {/* BLOCO DO TEXTO (CARD) */}
                     <div className={`w-full md:w-[45%] ${isEven ? 'md:text-left' : 'md:text-right'}`}>
                       <FadeInOnScroll delay={isEven ? 200 : 100}>
-                        <div className="bg-card/20 backdrop-blur-md border border-white/5 rounded-2xl p-6 md:p-8 hover:bg-card/40 transition-colors duration-500 hover:border-primary/30">
+                        <div className="bg-card/20 backdrop-blur-md border border-white/5 rounded-2xl p-5 sm:p-6 md:p-8 hover:bg-card/40 transition-colors duration-500 hover:border-primary/30">
                           <h3 className="text-primary font-bold text-2xl mb-1">{item.year}</h3>
                           <h4 className="text-2xl font-bold text-foreground mb-3">{item.title}</h4>
                           <p className="text-muted-foreground leading-relaxed">{item.description}</p>
