@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import PillarsSection from "@/components/PillarsSection";
 import SubscriptionsBanner from "@/components/SubscriptionsBanner";
+import ActiveEventsBar from "@/components/ActiveEventsBar";
 import Footer from "@/components/Footer";
 //import AchievemantSection from "@/components/AchievemantSection";
 //import RobotSection from "@/components/RobotSection";
@@ -57,6 +58,8 @@ const Index = () => {
         <section id="home">
           <HeroSection/>
         </section>
+      {/* seção para adicionar publicação em ativa ou eventos */}
+        <ActiveEventsBar />
 
         <section id="inscricoes">
           <SubscriptionsBanner />
