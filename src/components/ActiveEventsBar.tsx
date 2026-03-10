@@ -5,7 +5,7 @@ import AnimatedParticles from "./AnimatedParticles";
 import oficina14 from "@/assets/oficina_14.jpeg";
 
 
-type EventStatus = "open" | "soon";
+type EventStatus = "open" | "soon" | "soldout";
 
 type EventItem = {
   id: "oficina" | "proxima";
@@ -43,6 +43,12 @@ const getDaysUntil = (date: Date) => {
   return Math.ceil(diff / (1000 * 60 * 60 * 24));
 };
 
+const getStatusLabel = (status: EventStatus) => {
+  if (status === "open") return "Inscrições Abertas";
+  if (status === "soldout") return "Vagas Esgotadas";
+  return "Em Breve";
+};
+
 const ActiveEventsBar = () => {
   const events: EventItem[] = useMemo(
     () => [
@@ -52,15 +58,10 @@ const ActiveEventsBar = () => {
         date: new Date(2026, 2, 14),
         time: "08h às 11h",
         location: "Living Lab (Rua Brasil, 205)",
-        status: "open",
+        status: "soldout",
         image: oficina14,
         description:
           "A nossa próxima missão já tem data marcada! A equipe AraraBots preparou uma oficina exclusiva para quem quer sair da teoria e colocar a mão na massa. Essa é a sua chance de vivenciar o laboratório e aprender as bases da robótica de forma prática e colaborativa.",
-        primaryAction: {
-          label: "Inscrever-se na Oficina",
-          href: "https://docs.google.com/forms/d/e/1FAIpQLSdhwYpctUVzV-cNHblhZVAHqD49ewf7-FLrvaB1gT6jVOtifw/viewform",
-          external: true,
-        },
         secondaryAction: {
           label: "Ver no Instagram",
           href: "https://www.instagram.com/p/DVqzQ4RjTHO/",
@@ -140,7 +141,7 @@ const ActiveEventsBar = () => {
             <div className="flex flex-wrap items-center gap-3 text-sm text-foreground">
               <span className="inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-3 py-1 text-[11px] font-bold uppercase tracking-wider">
                 <span className="h-2 w-2 rounded-full bg-primary-foreground animate-pulse" />
-                {nearestEvent.status === "open" ? "Inscrições Abertas" : "Em Breve"}
+                {getStatusLabel(nearestEvent.status)}
               </span>
               <span className="inline-flex items-center gap-2 text-muted-foreground">
                 <Timer className="h-4 w-4 text-primary" />
@@ -183,15 +184,21 @@ const ActiveEventsBar = () => {
                         className={`mb-3 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider ${
                           eventCard.status === "open"
                             ? "bg-primary text-primary-foreground"
-                            : "border border-white/15 bg-card/80 text-muted-foreground"
+                            : eventCard.status === "soldout"
+                              ? "bg-red-900/60 text-red-100 border border-red-700/60"
+                              : "border border-white/15 bg-card/80 text-muted-foreground"
                         }`}
                       >
                         <span
                           className={`h-2 w-2 rounded-full ${
-                            eventCard.status === "open" ? "bg-primary-foreground" : "bg-muted-foreground"
+                            eventCard.status === "open"
+                              ? "bg-primary-foreground"
+                              : eventCard.status === "soldout"
+                                ? "bg-red-200"
+                                : "bg-muted-foreground"
                           }`}
                         />
-                        {eventCard.status === "open" ? "Inscrições Abertas" : "Em Breve"}
+                        {getStatusLabel(eventCard.status)}
                       </span>
 
                       <p className="font-semibold text-foreground text-sm md:text-base">{eventCard.title}</p>
