@@ -14,6 +14,8 @@ import Subscriptions from "./pages/Subscriptions";
 import About from "./pages/About";
 import InProduction from "./pages/InProduction";
 import { Hash } from "lucide-react";
+import Robot from "./pages/Robot";
+
 
 const queryClient = new QueryClient();
 
@@ -33,7 +35,7 @@ const App = () => (
             <Route path="/publicacoes" element={<Publications />} />
             <Route path="/inscricao" element={<Subscriptions />} />
             <Route path="/sobre" element={<About />} />
-            <Route path="/robo" element={<InProduction />} /> {/* Rota para a página "Em Construção" */} {/*Quando estiver pronto, substituir o termo "{<InProduction />}" para "{<Robot />}"*/}
+            <Route path="/robo" element={<Robot />} /> {/* Rota para a página "Em Construção" */} {/*Quando estiver pronto, substituir o termo "{<InProduction />}" para "{<Robot />}"*/}
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
         </Routes>
