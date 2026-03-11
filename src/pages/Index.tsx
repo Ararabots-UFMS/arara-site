@@ -49,7 +49,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>AraraBot - Equipe de Robótica da UFMS</title>
+        <title>AraraBots - Equipe de Robótica da UFMS</title>
         <meta name="description" content="Equipe de robótica da Universidade Federal da Mato Grosso do Sul (UFMS)" />
       </Helmet>
       <Header />
