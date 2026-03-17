@@ -1,10 +1,20 @@
 import { FormEvent, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  deleteField,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { db } from "@/lib/firebase";
-import { PublicationType } from "@/types/publication";
+import { usePublications } from "@/hooks/usePublications";
+import { Publication, PublicationType } from "@/types/publication";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -82,13 +92,76 @@ const checkImageExists = async (imagePath: string): Promise<boolean> => {
 };
 
 const AdminPublications = () => {
+  const queryClient = useQueryClient();
   const [form, setForm] = useState<PublicationFormState>(initialFormState);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [editingPublicationId, setEditingPublicationId] = useState<string | null>(null);
+  const [deletingPublicationId, setDeletingPublicationId] = useState<string | null>(null);
+
+  const {
+    data: publications = [],
+    isLoading: isLoadingPublications,
+    isError: isErrorPublications,
+  } = usePublications();
 
   const normalizedImagePath = useMemo(() => normalizeImagePath(form.image), [form.image]);
+  const orderedPublications = useMemo(() => [...publications].reverse(), [publications]);
 
   const updateField = <K extends keyof PublicationFormState>(field: K, value: PublicationFormState[K]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const resetForm = () => {
+    setForm(initialFormState);
+    setEditingPublicationId(null);
+  };
+
+  const startEditing = (publication: Publication) => {
+    setEditingPublicationId(publication.id);
+    setForm({
+      title: publication.title,
+      category: publication.category,
+      date: publication.date,
+      type: publication.type,
+      author: publication.author ?? "",
+      image: publication.image,
+      link: publication.link ?? "",
+      excerpt: publication.excerpt,
+      content: publication.content ?? "",
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const refreshPublications = async () => {
+    await queryClient.invalidateQueries({ queryKey: ["publications"] });
+  };
+
+  const handleDeletePublication = async (publication: Publication) => {
+    const confirmDelete = window.confirm(
+      `Tem certeza que deseja apagar a publicação "${publication.title}"? Esta ação não pode ser desfeita.`,
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    setDeletingPublicationId(publication.id);
+
+    try {
+      await deleteDoc(doc(db, PUBLICATIONS_COLLECTION, publication.id));
+      toast.success("Publicacao apagada com sucesso.");
+
+      if (editingPublicationId === publication.id) {
+        resetForm();
+      }
+
+      await refreshPublications();
+    } catch {
+      toast.error("Nao foi possivel apagar a publicacao.");
+    } finally {
+      setDeletingPublicationId(null);
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -131,24 +204,44 @@ const AdminPublications = () => {
         return;
       }
 
-      await addDoc(collection(db, PUBLICATIONS_COLLECTION), {
-        title: form.title.trim(),
-        category: form.category.trim(),
-        date: form.date.trim(),
-        type: form.type,
-        excerpt: form.excerpt.trim(),
-        image: imagePath,
-        ...(form.author.trim() ? { author: form.author.trim() } : {}),
-        ...(form.content.trim() ? { content: form.content.trim() } : {}),
-        ...(form.link.trim() ? { link: form.link.trim() } : {}),
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp(),
-      });
+      if (editingPublicationId) {
+        await updateDoc(doc(db, PUBLICATIONS_COLLECTION, editingPublicationId), {
+          title: form.title.trim(),
+          category: form.category.trim(),
+          date: form.date.trim(),
+          type: form.type,
+          excerpt: form.excerpt.trim(),
+          image: imagePath,
+          author: form.author.trim() ? form.author.trim() : deleteField(),
+          content:
+            form.type === "internal" && form.content.trim() ? form.content.trim() : deleteField(),
+          link: form.type === "external" && form.link.trim() ? form.link.trim() : deleteField(),
+          updatedAt: serverTimestamp(),
+        });
 
-      toast.success("Publicacao criada com sucesso no Firestore.");
-      setForm(initialFormState);
+        toast.success("Publicacao atualizada com sucesso.");
+      } else {
+        await addDoc(collection(db, PUBLICATIONS_COLLECTION), {
+          title: form.title.trim(),
+          category: form.category.trim(),
+          date: form.date.trim(),
+          type: form.type,
+          excerpt: form.excerpt.trim(),
+          image: imagePath,
+          ...(form.author.trim() ? { author: form.author.trim() } : {}),
+          ...(form.content.trim() ? { content: form.content.trim() } : {}),
+          ...(form.link.trim() ? { link: form.link.trim() } : {}),
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp(),
+        });
+
+        toast.success("Publicacao criada com sucesso no Firestore.");
+      }
+
+      resetForm();
+      await refreshPublications();
     } catch {
-      toast.error("Nao foi possivel criar a publicacao. Verifique as regras do Firestore e tente novamente.");
+      toast.error("Nao foi possivel salvar a publicacao. Verifique as regras do Firestore e tente novamente.");
     } finally {
       setIsSubmitting(false);
     }
@@ -178,6 +271,12 @@ const AdminPublications = () => {
 
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
+                {editingPublicationId && (
+                  <div className="rounded-md border border-primary/40 bg-primary/10 p-3 text-sm text-foreground">
+                    Modo edicao ativo. Salve para atualizar esta publicacao ou cancele para voltar ao cadastro novo.
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <p className="text-sm text-muted-foreground">Titulo *</p>
@@ -288,11 +387,83 @@ const AdminPublications = () => {
                 )}
 
                 <div className="flex justify-end">
-                  <Button type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? "Salvando..." : "Publicar no Firestore"}
-                  </Button>
+                  <div className="flex gap-3">
+                    {editingPublicationId && (
+                      <Button type="button" variant="outline" onClick={resetForm} disabled={isSubmitting}>
+                        Cancelar edicao
+                      </Button>
+                    )}
+
+                    <Button type="submit" disabled={isSubmitting}>
+                      {isSubmitting
+                        ? "Salvando..."
+                        : editingPublicationId
+                          ? "Atualizar publicacao"
+                          : "Publicar no Firestore"}
+                    </Button>
+                  </div>
                 </div>
               </form>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-card/60 border-white/10 backdrop-blur-md mt-8">
+            <CardHeader>
+              <CardTitle>Publicacoes existentes</CardTitle>
+              <CardDescription>
+                Edite ou apague qualquer publicacao cadastrada no Firestore.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {isLoadingPublications && (
+                <p className="text-sm text-muted-foreground">Carregando publicacoes...</p>
+              )}
+
+              {isErrorPublications && (
+                <p className="text-sm text-destructive">Nao foi possivel carregar as publicacoes.</p>
+              )}
+
+              {!isLoadingPublications && !isErrorPublications && orderedPublications.length === 0 && (
+                <p className="text-sm text-muted-foreground">Nenhuma publicacao cadastrada ainda.</p>
+              )}
+
+              {!isLoadingPublications && !isErrorPublications && orderedPublications.length > 0 && (
+                <div className="space-y-3">
+                  {orderedPublications.map((publication) => (
+                    <div
+                      key={publication.id}
+                      className="rounded-md border border-white/10 p-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
+                    >
+                      <div>
+                        <p className="font-semibold">{publication.title}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {publication.date} · {publication.category} · {publication.type}
+                        </p>
+                      </div>
+
+                      <div className="flex gap-2">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => startEditing(publication)}
+                        >
+                          Editar
+                        </Button>
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="sm"
+                          disabled={deletingPublicationId === publication.id}
+                          onClick={() => handleDeletePublication(publication)}
+                        >
+                          {deletingPublicationId === publication.id ? "Apagando..." : "Apagar"}
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
