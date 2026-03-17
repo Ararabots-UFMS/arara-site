@@ -14,8 +14,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import AnimatedParticles from "./AnimatedParticles";
-import ReadPublication, { Publication } from "./ReadPublication";
+import ReadPublication from "./ReadPublication";
 import { usePublications } from "@/hooks/usePublications";
+import { Publication } from "@/types/publication";
 
 const CATEGORIES = ["Todos", "Artigo", "Competição", "Extensão", "Reconhecimento", "Mídia"];
 
