@@ -6,20 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner"; 
 import DOMPurify from "dompurify"; // <--- 1. Importação Nova
-
-// Interface da Publicação
-export interface Publication {
-  id: number;
-  title: string;
-  category: string;
-  date: string;
-  excerpt: string;
-  image: string;
-  author?: string;
-  content?: string;
-  type: "internal" | "external";
-  link?: string;
-}
+import { Publication } from "@/types/publication";
 
 interface ReadPublicationProps {
   publication: Publication | null;
