@@ -13,13 +13,13 @@ const SELECTION_STEPS = [
   {
     icon: <Ticket className="w-5 h-5 text-primary" />,
     title: "1. Inscrição Online",
-    date: "05/03/2026 - 20/03/2026",
+    date: "05/03/2026 - 27/03/2026",
     description: "Preencha seus dados para demonstrar interesse em participar do Hackathon AraraBots."
   },
   {
     icon: <Users className="w-5 h-5 text-primary" />,
     title: "2. Avaliação dos Inscritos",
-    date: "21/03/2026 - 22/03/2026",
+    date: "28/03/2026 - 22/03/2026",
     description: "Análise dos inscritos para definir os participantes que irão para o Hackathon."
   },
   {
