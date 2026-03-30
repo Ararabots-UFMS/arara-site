@@ -37,7 +37,7 @@ const ActiveEventsBar = () => {
   const daysUntilNearest = getDaysUntil(nearestEvent.date);
 
   return (
-    <div className="relative overflow-hidden py-6 md:py-8">
+    <div id="agenda" className="relative overflow-hidden py-6 md:py-8">
       <AnimatedParticles />
       <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-10" />

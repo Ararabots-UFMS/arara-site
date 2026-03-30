@@ -10,43 +10,42 @@ interface PillarCardProps {
   icon: LucideIcon;
 }
 
-const PillarCard = ({ category, title, subtitle, description, icon: Icon }: PillarCardProps) => {
+const PillarCard = ({
+  category,
+  title,
+  subtitle,
+  description,
+  icon: Icon,
+}: PillarCardProps) => {
   return (
-    
-    <section
-      id="pilares"
-      className="relative max-h-screen flex items-center pt-20 overflow"
-    >
+    <div>
+      <div className="bg-card rounded-3xl p-8 border border-border card-hover flex flex-col h-full">
+        {/* Category Label */}
+        <div className="flex justify-end mb-6">
+          <span className="text-primary text-sm font-semibold">{category}</span>
+        </div>
 
-      
-    <div className="bg-card rounded-3xl p-8 border border-border card-hover flex flex-col h-full">
-      {/* Category Label */}
-      <div className="flex justify-end mb-6">
-        <span className="text-primary text-sm font-semibold">{category}</span>
-      </div>
+        {/* Icon */}
+        <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+          <Icon className="w-7 h-7 text-primary" />
+        </div>
 
-      {/* Icon */}
-      <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-        <Icon className="w-7 h-7 text-primary" />
-      </div>
+        <div className="flex-grow">
+          <h3 className="text-2xl font-bold text-foreground mb-1">{title}</h3>
+          <p className="text-primary text-sm font-medium mb-4">{subtitle}</p>
+          <p className="text-muted-foreground leading-relaxed">{description}</p>
+        </div>
 
-      {/* Content */}
-      <div className="flex-grow">
-        <h3 className="text-2xl font-bold text-foreground mb-1">{title}</h3>
-        <p className="text-primary text-sm font-medium mb-4">{subtitle}</p>
-        <p className="text-muted-foreground leading-relaxed">{description}</p>
-      </div>
-
-      {/* Bottom decoration */}
-      <div className="mt-8 pt-6 border-t border-primary/30">
-        <div className="flex gap-2">
-          <span className="w-2 h-2 rounded-full bg-primary" />
-          <span className="w-2 h-2 rounded-full bg-primary" />
-          <span className="w-2 h-2 rounded-full bg-primary" />
+        {/* Bottom decoration */}
+        <div className="mt-8 pt-6 border-t border-primary/30">
+          <div className="flex gap-2">
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="w-2 h-2 rounded-full bg-primary" />
+            <span className="w-2 h-2 rounded-full bg-primary" />
+          </div>
         </div>
       </div>
     </div>
-    </section>
   );
 };
 
@@ -82,23 +81,19 @@ const PillarsSection = () => {
     <section id="pilares" className="py-24 relative overflow-hidden">
       <AnimatedGrid inverted />
       <AnimatedParticles />
-      <div className="container mx-auto px-6">
-        {/* Section Title */}
+      <div className="container mx-auto px-6 relative z-10">
         <div className="text-center mb-6">
           <h2 className="section-title">
-      
             NOSSOS <span className="text-primary">PILARES</span>
           </h2>
           <div className="w-24 h-1 bg-primary mx-auto mt-4" />
         </div>
 
-        {/* Subtitle */}
         <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-16">
           A AraraBots não é apenas sobre máquinas, mas sobre as pessoas e os
           princípios que guiam cada solda, cada linha de código e cada vitória.
         </p>
 
-        {/* Pillars Grid */}
         <div className="grid md:grid-cols-3 gap-8">
           {pillars.map((pillar) => (
             <PillarCard key={pillar.title} {...pillar} />
@@ -106,7 +101,6 @@ const PillarsSection = () => {
         </div>
       </div>
     </section>
-
   );
 };
 
