@@ -11,9 +11,19 @@ const EventCarousel = ({ events }: EventCarouselProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  const maxIndex = Math.max(0, events.length - 2);
-  const hasManyEvents = events.length > 2;
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const visibleCount = isMobile ? 1 : 2;
+  const maxIndex = Math.max(0, events.length - visibleCount);
+  const hasManyEvents = events.length > visibleCount;
 
   useEffect(() => {
     const el = containerRef.current;
@@ -45,7 +55,7 @@ const EventCarousel = ({ events }: EventCarouselProps) => {
     >
       <div ref={containerRef} className="flex items-stretch overflow-hidden">
         {events.map((event, index) => (
-          <div key={index} className="flex-none w-1/2 px-2 flex flex-col">
+          <div key={index} className="flex-none w-full sm:w-1/2 px-2 flex flex-col">
             <EventCard event={event} />
           </div>
         ))}
