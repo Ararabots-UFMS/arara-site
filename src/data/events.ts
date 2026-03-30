@@ -27,7 +27,7 @@ export type EventItem = {
 export const events: EventItem[] = [
   {
     title: "Hackaton",
-    date: new Date(2026, 3, 4),
+    date: new Date(2026, 3, 11),
     location: "",
     status: "soon",
     description: "",
