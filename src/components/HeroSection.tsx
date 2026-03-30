@@ -71,13 +71,15 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <button
-        onClick={() => document.getElementById("agenda")?.scrollIntoView({ behavior: "smooth" })}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/80 animate-bounce cursor-pointer"
-      >
-        <span className="text-xs tracking-widest uppercase font-semibold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">ver agenda</span>
-        <ChevronDown className="h-5 w-5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]" />
-      </button>
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
+        <button
+          onClick={() => document.getElementById("agenda")?.scrollIntoView({ behavior: "smooth" })}
+          className="flex flex-col items-center gap-1 text-white/80 animate-bounce cursor-pointer"
+        >
+          <span className="text-xs tracking-widest uppercase font-semibold drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">ver agenda</span>
+          <ChevronDown className="h-5 w-5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]" />
+        </button>
+      </div>
     </section>
   );
 };
