@@ -26,11 +26,13 @@ export type EventItem = {
 
 export const events: EventItem[] = [
   {
-    title: "Hackaton - Dinâmica em grupo",
+    title: "Hackathon AraraBots 2026 — Etapa Presencial",
     date: new Date(2026, 3, 11),
-    location: "",
+    time: "08:00 às 18:00",
+    location: "LivingLab — R. Brasil, 205, Monte Castelo",
     status: "soon",
-    description: "",
+    description:
+      "Os participantes selecionados já foram notificados por e-mail. Verifique sua caixa de entrada e a pasta de spam.",
     secondaryAction: {
       label: "Ver no Instagram",
       href: "https://www.instagram.com/ararabots/",
