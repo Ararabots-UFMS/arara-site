@@ -27,7 +27,7 @@ const SELECTION_STEPS = [
   {
     icon: <Zap className="w-5 h-5 text-primary" />,
     title: "3. Divulgação dos Selecionados",
-    date: "23/03/2026",
+    date: "30/03/2026",
     description:
       "Divulgação da lista de participantes selecionados para o Hackathon.",
   },
@@ -179,4 +179,3 @@ const Subscriptions = () => {
 };
 
 export default Subscriptions;
-

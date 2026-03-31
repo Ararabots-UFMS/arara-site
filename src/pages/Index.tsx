@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import PillarsSection from "@/components/PillarsSection";
 import SubscriptionsBanner from "@/components/SubscriptionsBanner";
-import ActiveEventsBar from "@/components/ActiveEventsBar";
+import ActiveEventsBar from "@/components/ActiveEvents/ActiveEventsBar";
 import Footer from "@/components/Footer";
 //import AchievemantSection from "@/components/AchievemantSection";
 //import RobotSection from "@/components/RobotSection";
@@ -12,11 +12,8 @@ import Footer from "@/components/Footer";
 //import TechAssembly from "@/components/TechAssembly";
 import PageSkeleton from "@/components/PageSkeleton";
 import { Helmet } from "react-helmet-async";
-import AnimatedParticles from "@/components/AnimatedParticles";
-
 
 const Index = () => {
-
   const [isLoading, setIsLoading] = useState(true);
   const { hash } = useLocation();
 
@@ -31,16 +28,15 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-  if (!isLoading && hash) {
-    setTimeout(() => {
-      const element = document.querySelector(hash);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 100);
-  }
+    if (!isLoading && hash) {
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
   }, [isLoading, hash]);
-
 
   if (isLoading) {
     return <PageSkeleton />;
@@ -50,15 +46,16 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>AraraBots - Equipe de Robótica da UFMS</title>
-        <meta name="description" content="Equipe de robótica da Universidade Federal da Mato Grosso do Sul (UFMS)" />
+        <meta
+          name="description"
+          content="Equipe de robótica da Universidade Federal da Mato Grosso do Sul (UFMS)"
+        />
       </Helmet>
       <Header />
       <main>
-
         <section id="home">
-          <HeroSection/>
+          <HeroSection />
         </section>
-      {/* seção para adicionar publicação em ativa ou eventos */}
         <ActiveEventsBar />
 
         <section id="inscricoes">
@@ -66,9 +63,8 @@ const Index = () => {
         </section>
 
         <section id="pilares">
-          <PillarsSection/>
+          <PillarsSection />
         </section>
-
       </main>
       <Footer />
     </div>
@@ -76,3 +72,4 @@ const Index = () => {
 };
 
 export default Index;
+
