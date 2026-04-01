@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Calendar, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Calendar } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
@@ -49,11 +48,11 @@ const SubscriptionsBanner = () => {
           
           {/* Seção de Texto */}
           <div className="text-center space-y-6">
-            {/* Badge de Inscrições Abertas */}
+            {/* Badge de Inscrições */}
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#B91C1C]/10 rounded-full border border-[#B91C1C]/20 text-sm font-semibold text-[#B91C1C]">
               <Calendar className="w-4 h-4" />
-        
-              Inscrições Abertas - Fase 1: Inscrição Online
+
+              Inscrições Encerradas
             </div>
             
             {/* Título */}
@@ -111,17 +110,14 @@ const SubscriptionsBanner = () => {
             </Carousel>
           </div>
 
-          {/* Botão de Ação (Já corrigido com Link) */}
+          {/* Botão de Ação */}
           <div className="text-center">
-            <Button 
-              size="lg" 
-              className="h-14 px-10 text-lg font-bold rounded-lg shadow-lg shadow-red-900/20 group/btn bg-[#B91C1C] hover:bg-red-800 text-white"
-              asChild
+            <Button
+              size="lg"
+              className="h-14 px-10 text-lg font-bold rounded-lg shadow-lg shadow-red-900/20 bg-[#B91C1C] text-white"
+              disabled
             >
-              <Link to="/inscricao">
-                Inscreva-se Agora
-                <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-              </Link>
+              Inscrições Encerradas
             </Button>
           </div>
 

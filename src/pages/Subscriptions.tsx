@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Ticket, ArrowRight, Bot, Users, Zap, Trophy } from "lucide-react";
+import { Ticket, Bot, Users, Zap, Trophy } from "lucide-react";
 import AnimatedGrid from "@/components/AnimatedGrid";
 import AnimatedParticles from "@/components/AnimatedParticles";
 import lia from "@/assets/Lia.png";
@@ -48,9 +48,7 @@ const SELECTION_STEPS = [
 ];
 
 const Subscriptions = () => {
-  // Coloque o link real do Google Forms da equipe aqui 👇
-  const GOOGLE_FORMS_URL =
-    "https://docs.google.com/forms/d/e/1FAIpQLSdP0QAhAjzWePOA1RWnHK6LA4dZ8q3Cz50UYDWNN0Lw-e-B8w/viewform";
+  const REGISTRATIONS_OPEN = false;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -139,32 +137,27 @@ const Subscriptions = () => {
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl font-bold">
-                    Pronto para o desafio?
+                    {REGISTRATIONS_OPEN
+                      ? "Pronto para o desafio?"
+                      : "Inscrições Encerradas"}
                   </h2>
 
                   <p className="text-sm sm:text-base text-muted-foreground">
-                    As vagas são limitadas. Garanta seu lugar no maior projeto
-                    de robótica da região e transforme sua carreira acadêmica.
+                    {REGISTRATIONS_OPEN
+                      ? "As vagas são limitadas. Garanta seu lugar no maior projeto de robótica da região e transforme sua carreira acadêmica."
+                      : "A etapa de inscrição foi finalizada. Acompanhe nossos canais para novas turmas e próximos processos seletivos."}
                   </p>
 
-                  {/* Botão Modificado para ser um Link Externo */}
                   <Button
                     size="lg"
-                    className="w-full h-14 text-lg font-bold rounded-xl shadow-lg shadow-primary/20 transition-all hover:scale-105 group/btn"
-                    asChild
+                    className="w-full h-14 text-lg font-bold rounded-xl shadow-lg shadow-primary/20"
+                    disabled
                   >
-                    <a
-                      href={GOOGLE_FORMS_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Inscreva-se Agora
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                    </a>
+                    Inscrições Encerradas
                   </Button>
 
                   <p className="text-xs text-muted-foreground pt-4">
-                    Você será redirecionado para o nosso formulário oficial.
+                    As inscrições para esta edição não estão mais disponíveis.
                   </p>
                 </CardContent>
               </Card>
