@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useQueryClient } from "@tanstack/react-query";
 import {
@@ -13,6 +13,7 @@ import {
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { db } from "@/lib/firebase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import { usePublications } from "@/hooks/usePublications";
 import { Publication, PublicationType } from "@/types/publication";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,6 +30,7 @@ import {
 import { toast } from "sonner";
 
 const PUBLICATIONS_COLLECTION = "publications";
+const SUPABASE_BUCKET = "ararasite-images";
 
 const CATEGORIES = ["Artigo", "Competição", "Extensão", "Reconhecimento", "Mídia"];
 
@@ -38,7 +40,6 @@ interface PublicationFormState {
   date: string;
   type: PublicationType;
   author: string;
-  image: string;
   link: string;
   excerpt: string;
   content: string;
@@ -50,50 +51,39 @@ const initialFormState: PublicationFormState = {
   date: "",
   type: "internal",
   author: "",
-  image: "",
   link: "",
   excerpt: "",
   content: "",
 };
 
-const normalizeImagePath = (input: string): string => {
-  const value = input.trim();
-
-  if (!value) {
-    return "";
+const uploadPublicationImage = async (file: File): Promise<string> => {
+  if (!supabase) {
+    throw new Error("Supabase is not configured.");
   }
 
-  if (value.startsWith("/publications/")) {
-    return value;
+  const safeFileName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const filePath = `publications/${Date.now()}-${safeFileName}`;
+
+  const { error } = await supabase.storage.from(SUPABASE_BUCKET).upload(filePath, file, {
+    cacheControl: "3600",
+    contentType: file.type,
+    upsert: false,
+  });
+
+  if (error) {
+    throw error;
   }
 
-  if (value.startsWith("public/publications/")) {
-    return `/${value.replace(/^public\//, "")}`;
-  }
+  const { data } = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(filePath);
 
-  if (value.startsWith("publications/")) {
-    return `/${value}`;
-  }
-
-  return `/publications/${value}`;
-};
-
-const isValidImagePath = (imagePath: string): boolean => {
-  return /^\/publications\/[^/]+$/.test(imagePath);
-};
-
-const checkImageExists = async (imagePath: string): Promise<boolean> => {
-  try {
-    const response = await fetch(imagePath, { cache: "no-store" });
-    return response.ok;
-  } catch {
-    return false;
-  }
+  return data.publicUrl;
 };
 
 const AdminPublications = () => {
   const queryClient = useQueryClient();
   const [form, setForm] = useState<PublicationFormState>(initialFormState);
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageInputKey, setImageInputKey] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingPublicationId, setEditingPublicationId] = useState<string | null>(null);
   const [deletingPublicationId, setDeletingPublicationId] = useState<string | null>(null);
@@ -104,27 +94,33 @@ const AdminPublications = () => {
     isError: isErrorPublications,
   } = usePublications();
 
-  const normalizedImagePath = useMemo(() => normalizeImagePath(form.image), [form.image]);
   const orderedPublications = useMemo(() => [...publications].reverse(), [publications]);
 
   const updateField = <K extends keyof PublicationFormState>(field: K, value: PublicationFormState[K]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  const handleImageFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setImageFile(event.target.files?.[0] ?? null);
+  };
+
   const resetForm = () => {
     setForm(initialFormState);
+    setImageFile(null);
+    setImageInputKey((currentKey) => currentKey + 1);
     setEditingPublicationId(null);
   };
 
   const startEditing = (publication: Publication) => {
     setEditingPublicationId(publication.id);
+    setImageFile(null);
+    setImageInputKey((currentKey) => currentKey + 1);
     setForm({
       title: publication.title,
       category: publication.category,
       date: publication.date,
       type: publication.type,
       author: publication.author ?? "",
-      image: publication.image,
       link: publication.link ?? "",
       excerpt: publication.excerpt,
       content: publication.content ?? "",
@@ -138,6 +134,11 @@ const AdminPublications = () => {
   };
 
   const handleDeletePublication = async (publication: Publication) => {
+    if (!db) {
+      toast.error("Configure o Firebase para apagar publicacoes.");
+      return;
+    }
+
     const confirmDelete = window.confirm(
       `Tem certeza que deseja apagar a publicação "${publication.title}"? Esta ação não pode ser desfeita.`,
     );
@@ -171,15 +172,20 @@ const AdminPublications = () => {
       return;
     }
 
-    const imagePath = normalizeImagePath(form.image);
+    if (!db) {
+      toast.error("Configure o Firebase antes de salvar publicacoes.");
+      return;
+    }
+
+    let imageUrl = editingPublicationId ? publications.find((publication) => publication.id === editingPublicationId)?.image ?? "" : "";
 
     if (!form.title.trim() || !form.category.trim() || !form.date.trim() || !form.excerpt.trim()) {
       toast.error("Preencha os campos obrigatorios: titulo, categoria, data e resumo.");
       return;
     }
 
-    if (!isValidImagePath(imagePath)) {
-      toast.error("A imagem deve seguir o padrao /publications/nomedaimagem.extensao.");
+    if (!imageFile && !imageUrl) {
+      toast.error("Envie uma imagem para continuar.");
       return;
     }
 
@@ -196,12 +202,17 @@ const AdminPublications = () => {
     setIsSubmitting(true);
 
     try {
-      const imageExists = await checkImageExists(imagePath);
-
-      if (!imageExists) {
-        toast.error("Imagem nao encontrada. Coloque o arquivo em public/publications e tente novamente.");
-        setIsSubmitting(false);
+      if (!supabase && imageFile) {
+        toast.error("Configure VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY para enviar imagens.");
         return;
+      }
+
+      if (imageFile) {
+        imageUrl = await uploadPublicationImage(imageFile);
+      }
+
+      if (!imageUrl) {
+        throw new Error("Missing publication image URL.");
       }
 
       if (editingPublicationId) {
@@ -211,7 +222,7 @@ const AdminPublications = () => {
           date: form.date.trim(),
           type: form.type,
           excerpt: form.excerpt.trim(),
-          image: imagePath,
+          image: imageUrl,
           author: form.author.trim() ? form.author.trim() : deleteField(),
           content:
             form.type === "internal" && form.content.trim() ? form.content.trim() : deleteField(),
@@ -227,7 +238,7 @@ const AdminPublications = () => {
           date: form.date.trim(),
           type: form.type,
           excerpt: form.excerpt.trim(),
-          image: imagePath,
+          image: imageUrl,
           ...(form.author.trim() ? { author: form.author.trim() } : {}),
           ...(form.content.trim() ? { content: form.content.trim() } : {}),
           ...(form.link.trim() ? { link: form.link.trim() } : {}),
@@ -265,11 +276,18 @@ const AdminPublications = () => {
             <CardHeader>
               <CardTitle>Admin de Publicacoes</CardTitle>
               <CardDescription>
-                Suba a imagem em public/publications e depois cadastre a publicacao aqui.
+                Envie uma imagem para o Supabase antes de salvar a publicacao.
               </CardDescription>
             </CardHeader>
 
             <CardContent>
+              {!isSupabaseConfigured && (
+                <div className="mb-6 rounded-md border border-amber-500/40 bg-amber-500/10 p-3 text-sm text-foreground">
+                  Supabase nao esta configurado. O formulario vai carregar, mas o upload de imagem
+                  fica indisponivel ate definir VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY.
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} className="space-y-6">
                 {editingPublicationId && (
                   <div className="rounded-md border border-primary/40 bg-primary/10 p-3 text-sm text-foreground">
@@ -338,15 +356,20 @@ const AdminPublications = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">Imagem *</p>
+                  <p className="text-sm text-muted-foreground">Imagem via Supabase</p>
                   <Input
-                    value={form.image}
-                    onChange={(e) => updateField("image", e.target.value)}
-                    placeholder="Ex: cbr-2026.jpg ou /publications/cbr-2026.jpg"
-                    required
+                    key={imageInputKey}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageFileChange}
+                    disabled={!isSupabaseConfigured}
                   />
                   <p className="text-xs text-muted-foreground">
-                    Caminho final salvo: {normalizedImagePath || "-"}
+                    {imageFile?.name
+                      ? `Arquivo selecionado: ${imageFile.name}`
+                      : editingPublicationId
+                        ? "Mantendo a imagem atual até você enviar uma nova."
+                        : "Selecione um arquivo de imagem para publicar."}
                   </p>
                 </div>
 
@@ -394,7 +417,10 @@ const AdminPublications = () => {
                       </Button>
                     )}
 
-                    <Button type="submit" disabled={isSubmitting}>
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting || (!isSupabaseConfigured && !editingPublicationId)}
+                    >
                       {isSubmitting
                         ? "Salvando..."
                         : editingPublicationId

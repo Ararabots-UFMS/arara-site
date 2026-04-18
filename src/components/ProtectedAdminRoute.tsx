@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useMemo, useState } from "react";
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
 import { Shield, LockKeyhole, LogIn } from "lucide-react";
 import { toast } from "sonner";
-import { auth } from "@/lib/firebase";
+import { auth, isFirebaseConfigured } from "@/lib/firebase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -30,6 +30,11 @@ const ProtectedAdminRoute = ({ children }: ProtectedAdminRouteProps) => {
   const isAuthorized = !!user?.email && allowedEmails.includes(user.email.toLowerCase());
 
   useEffect(() => {
+    if (!auth) {
+      setIsLoading(false);
+      return;
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setIsLoading(false);
@@ -39,6 +44,11 @@ const ProtectedAdminRoute = ({ children }: ProtectedAdminRouteProps) => {
   }, []);
 
   const handleEmailPasswordSignIn = async () => {
+    if (!auth || !isFirebaseConfigured) {
+      toast.error("Configure o Firebase antes de acessar a area admin.");
+      return;
+    }
+
     if (allowedEmails.length === 0) {
       toast.error("Defina VITE_ADMIN_ALLOWED_EMAILS no .env para habilitar o acesso admin.");
       return;
