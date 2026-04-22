@@ -24,36 +24,6 @@ npm install
 npm run dev
 ```
 
-## Variaveis de ambiente
-
-Copie o arquivo de exemplo e preencha os valores:
-
-```bash
-cp .env.example .env
-```
-
-Variaveis esperadas:
-
-- `VITE_FIREBASE_API_KEY`
-- `VITE_FIREBASE_AUTH_DOMAIN`
-- `VITE_FIREBASE_PROJECT_ID`
-- `VITE_FIREBASE_STORAGE_BUCKET`
-- `VITE_FIREBASE_MESSAGING_SENDER_ID`
-- `VITE_FIREBASE_APP_ID`
-- `VITE_ADMIN_ALLOWED_EMAILS`
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-
-## Comportamento sem variaveis do Supabase
-
-Se `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` nao estiverem definidas:
-
-- o input de upload de imagem fica desabilitado;
-- o botao de publicar novo conteudo fica desabilitado;
-- a interface exibe aviso de configuracao pendente do Supabase.
-
-Isso evita criacao de publicacao nova sem imagem quando o Storage nao esta configurado.
-
 ## Build e deploy
 
 ```bash
