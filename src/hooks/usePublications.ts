@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, query } from "firebase/firestore";
-import { db } from "@/lib/firebase";
+import { db, isFirebaseConfigured } from "@/lib/firebase";
 import { Publication } from "@/types/publication";
 
 const COLLECTION_NAME = "publications";
@@ -27,6 +27,10 @@ const toPublication = (id: string, raw: unknown): Publication => {
 };
 
 const fetchPublications = async (): Promise<Publication[]> => {
+  if (!isFirebaseConfigured || !db) {
+    return [];
+  }
+
   const publicationsQuery = query(collection(db, COLLECTION_NAME));
   const snapshot = await getDocs(publicationsQuery);
 
