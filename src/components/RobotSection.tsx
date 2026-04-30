@@ -1,4 +1,4 @@
-import TechAssembly from "./TechAssembly";
+import TechAssembly from "./robot";
 
 const RobotSection = () => {
   return (
